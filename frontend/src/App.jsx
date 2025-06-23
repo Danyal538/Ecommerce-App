@@ -1,8 +1,7 @@
-import React from 'react'
-import { Route, Routes } from 'react-router-dom'
+import React, { useContext } from 'react'
+import { Route, Routes, useParams } from 'react-router-dom'
 import Home from './pages/Home'
 import Collection from './pages/Collection'
-import Product from './pages/Product'
 import Cart from './pages/Cart'
 import DeliveryAndPayment from './pages/DeliveryAndPayment'
 import MyOrder from './pages/MyOrder'
@@ -10,15 +9,26 @@ import ContactUs from './pages/ContactUs'
 import AboutUs from './pages/AboutUs'
 import NavBar from './components/NavBar'
 import Footer from './components/Footer'
+import Login from './pages/Login'
+import SignUp from './pages/SignUp'
+import AppContext from '../contexts/AppContext'
+import ProductDescription from './pages/ProductDescription'
+import ScrollToTop from './components/ScrollToTop'
+
 
 const App = () => {
+  const { currState } = useContext(AppContext);
   return (
     <div>
       <NavBar />
+      <ScrollToTop />
       <Routes>
         <Route path='/' element={<Home />} />
+        <Route path='/cart' element={<Cart />} />
+        <Route path="/product/:id" element={<ProductDescription />} />
+        {currState === "Login" ? <Route path='/login' element={<Login />} />
+          : <Route path='/sign-up' element={<SignUp />} />}
         <Route path='/collection' element={<Collection />} />
-        <Route path='/products' element={<Product />} />
         <Route path='/cart' element={<Cart />} />
         <Route path='/payment' element={<DeliveryAndPayment />} />
         <Route path='/my-orders' element={<MyOrder />} />
@@ -27,7 +37,7 @@ const App = () => {
         <Route path='/my-orders' element={<MyOrder />} />
 
       </Routes>
-      {/* <Footer /> */}
+      <Footer />
     </div>
   )
 }

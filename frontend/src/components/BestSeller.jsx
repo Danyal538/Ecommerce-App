@@ -16,7 +16,7 @@ const BestSeller = () => {
                 <p className="w-[805px] h-[23px] mx-auto text-center text-[18px] leading-[100%] font-outfit font-normal mt-2 text-gray-600">Lorem ipsum dolor sit amet consectetur adipisicing elit. Nemo, possimus?</p>
             </div>
             <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6 p-6 '>
-                {products.filter(product => product.bestseller === true).map((product) => {
+                {products.filter(product => product.bestseller === true).slice(0, 5).map((product) => {
                     return <ProductCard key={product._id} product={product} />
                 })}
             </div>
