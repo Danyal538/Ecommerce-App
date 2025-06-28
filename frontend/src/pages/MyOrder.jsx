@@ -1,59 +1,91 @@
-import React, { useContext } from 'react'
-import AppContext from '../../contexts/AppContext'
+import React, { useContext, useEffect, useState } from 'react';
+import AppContext from '../../contexts/AppContext';
+import axios from 'axios';
+import { toast } from 'react-toastify';
 
 const MyOrder = () => {
-    const { cartItems, selectedPayment, setSelectedPayment } = useContext(AppContext);
+    const { Base_Url, user } = useContext(AppContext);
+    const [orders, setOrders] = useState([]);
+
+    const getOrders = async (userId) => {
+        const token = localStorage.getItem("token");
+        try {
+            const { data } = await axios.post(`${Base_Url}/api/order/user-order`, { userId }, {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            });
+            if (data.success) {
+                setOrders(data.data);
+                toast.success("Orders fetched");
+            } else {
+                toast.error("Could not fetch your orders");
+            }
+        } catch {
+            toast.error("Error fetching orders");
+        }
+    };
+
+    useEffect(() => {
+        if (user?._id) getOrders(user._id);
+    }, [user]);
+
     return (
-        <div>
-            <div className="flex items-center gap-2 mt-10 mb-6 ml-20">
-                <p className="font-outfit font-normal text-[25px] uppercase leading-[100%] tracking-[0%] align-middle">
-                    <span className="text-[#707070]">MY</span> ORDERS
+        <div className="px-4 sm:px-6 md:px-10 py-6 min-h-screen bg-[#f9f9f9]">
+            <div className="flex items-center gap-2 mt-6 mb-6">
+                <p className="font-outfit font-normal text-[22px] sm:text-[25px] uppercase">
+                    <span className="text-[#707070]">My</span> Orders
                 </p>
-                <div className="w-[50px] h-[2px] bg-[#252525] rounded-[10px]"></div>
+                <div className="w-[40px] h-[2px] bg-[#252525] rounded"></div>
             </div>
-            <div>
-                {cartItems.map((item, index) => {
-                    return (
-                        <div className="flex items-center justify-between gap-4 border border-[#D1D1D1] ml-24 mr-3 mb-2 p-4">
 
-                            {/* Left – Image & Product Info */}
-                            <div className="flex gap-4 items-center">
-                                <img src={item.image} alt={item.name} className="w-[115px] h-[130px] object-cover rounded" />
-                                <div className="flex flex-col gap-2">
-                                    <p className="text-[#494949] font-[22px]">{item.name}</p>
-                                    <div className="flex gap-6 text-gray-600 text-sm">
-                                        <p className='text-[#494949]'>${item.price}</p>
-                                        <p className='text-[#1D1D1D]'>Quantity: {item.quantity}</p>
-                                        <p className='text-[#1D1D1D]'>Size: {item.size}</p>
-                                    </div>
-                                    <p className='text-black'>Date: <span className='text-gray-500'>{new Date().toDateString()}</span></p>
-                                    <p className='text-black'>Payment: <span className='text-gray-500'>{selectedPayment}</span></p>
-                                </div>
-                            </div>
-
-                            {/* Center – Status */}
-                            <div className="flex items-center justify-center min-w-[150px]">
-                                <div className="flex items-center gap-2">
-                                    <div className="w-3 h-3 bg-green-500 rounded-full"></div>
-                                    <p className="text-green-700 font-semibold text-sm">Order Placed</p>
-                                </div>
-                            </div>
-
-                            {/* Right – Button */}
-                            <div className="flex items-center">
-                                <button className="bg-black text-white px-4 py-2 rounded hover:bg-gray-800 transition">
-                                    Track Order
-                                </button>
-                            </div>
+            <div className="space-y-6">
+                {orders.map((order) => (
+                    <div key={order._id} className="bg-white border border-[#D1D1D1] rounded-md p-6 flex flex-col gap-4">
+                        {/* Header with date & amount */}
+                        <div className="flex justify-between items-center">
+                            <p className="font-semibold">
+                                Order on {new Date(order.date).toLocaleDateString()}
+                            </p>
+                            <p className="font-semibold text-indigo-600">
+                                Total: ${order.amount}
+                            </p>
                         </div>
-                    );
-                })}
 
-            </div>
-            <div>
+                        {/* Items */}
+                        <div className="space-y-2">
+                            {order.items.map((prod, idx) => (
+                                <div key={idx} className="flex justify-between border-b pb-2 last:border-none">
+                                    <p className="text-gray-700">{prod.name}</p>
+                                    <p className="text-gray-700">Qty: {prod.quantity} × ${prod.price}</p>
+                                </div>
+                            ))}
+                        </div>
+
+                        {/* Shipping Address */}
+                        <div className="text-gray-600">
+                            <p>Ship To:</p>
+                            <p>
+                                {order.address.firstName} {order.address.lastName}, {order.address.street}, {order.address.city}, {order.address.state}{order.address.zipcode && `, ${order.address.zipcode}`}
+                            </p>
+                        </div>
+
+                        {/* Order Status */}
+                        <p className={`font-semibold ${order.status === 'Delivered' ? 'text-green-700' : 'text-blue-700'}`}>
+                            Status: {order.status}
+                        </p>
+
+                        {/* Track Button */}
+                        <div className="text-right">
+                            <button className="bg-black text-white px-4 py-2 rounded hover:bg-gray-800">
+                                Track Order
+                            </button>
+                        </div>
+                    </div>
+                ))}
             </div>
         </div>
-    )
-}
+    );
+};
 
-export default MyOrder
+export default MyOrder;

@@ -1,8 +1,41 @@
 import React, { useState } from 'react'
+import { useContext } from 'react'
 import { useNavigate } from 'react-router-dom'
+import AppContext from '../../contexts/AppContext'
+import axios from 'axios'
+import { toast } from 'react-toastify'
 
 const Login = () => {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const { Base_Url, setIsLoggedIn, setUser, user } = useContext(AppContext);
+
+  const onSubmitHandler = async (e) => {
+    e.preventDefault();
+    if (!email || !password) {
+      console.log("All fields are required")
+      return;
+    }
+    try {
+      const response = await axios.post(`${Base_Url}/api/user/login`, { email, password });
+      console.log("Login response:", response.data);
+      if (response.data.success) {
+        localStorage.setItem("token", response.data.token);
+        console.log(response.data.token);
+        console.log("Logged in successfully");
+        navigate('/');
+        setIsLoggedIn(true);
+        setUser(response.data.user);
+        console.log(user);
+        toast.success("Logged In successfully")
+      }
+    } catch (error) {
+      console.log(error);
+      toast.error("Error in Login")
+    }
+  }
+  console.log("token:", localStorage.getItem("token"));
 
   return (
     <div className="flex items-center justify-center min-h-screen">
@@ -17,9 +50,9 @@ const Login = () => {
         </div>
 
         {/* Form */}
-        <form className="flex flex-col gap-4">
-          <input type="email" placeholder="Email" className="p-2 border border-gray-300 rounded" />
-          <input type="password" placeholder="Password" className="p-2 border border-gray-300 rounded" />
+        <form className="flex flex-col gap-4" onSubmit={onSubmitHandler}>
+          <input onChange={(e) => setEmail(e.target.value)} type="email" placeholder="Email" className="p-2 border border-gray-300 rounded" />
+          <input onChange={(e) => setPassword(e.target.value)} type="password" placeholder="Password" className="p-2 border border-gray-300 rounded" />
           <button type="submit" className="mt-4 bg-black text-white py-2 rounded hover:bg-gray-800">Login</button>
         </form>
 

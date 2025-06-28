@@ -1,47 +1,89 @@
 import React, { useState, useRef, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
-import { products } from '../assets/frontend_assets/assets'
 import ProductCard from "../components/ProductCard"
 import { useContext } from 'react'
 import AppContext from '../../contexts/AppContext'
+import axios from 'axios'
+import { toast } from 'react-toastify'
 
 const ProductDescription = () => {
     const { id } = useParams();
     const hasAdded = useRef(false);
     const [selectedSize, setSelectedSize] = useState(null);
+    const [product, setProduct] = useState(null);
+    const [allProducts, setAllProducts] = useState([]);
 
 
-    const { addToCart } = useContext(AppContext);
+    const { addToCart, Base_Url } = useContext(AppContext);
 
-    const product = products.find((item) => item._id === id);
-    if (!product) {
-        console.log("Product not find");
+    const fetchProducts = async () => {
+        console.log("🆔 Product ID from route:", id);
+        try {
+            const response = await axios.get(`${Base_Url}/api/product/getProduct/${id}`)
+            if (response.data.success) {
+                toast.success("Product fetched");
+                setProduct(response.data.data);
+                console.log(response.data);
+            }
+            else { toast.error("Error in Product finding") }
+        } catch (error) {
+            toast.error("Error in Product finding")
+
+        }
+    }
+
+    const fetchAllProducts = async () => {
+        try {
+            const response = await axios.get(`${Base_Url}/api/product/list`);
+            if (response.data.data) {
+                setAllProducts(response.data.data);
+                console.log("All product", product)
+            }
+            else {
+                console.log("Error in fetching product list")
+            }
+        } catch (error) {
+            console.log("Error in fetching product list")
+
+        }
     }
 
 
-    const relatedProducts = products.filter((p) => {
-        return (
+    const relatedProducts = product
+        ? allProducts.filter((p) =>
             p.category === product.category &&
             p.subCategory === product.subCategory &&
             p._id !== product._id
         )
-    });
+        : [];
     const limitedRelatedProducts = relatedProducts.slice(0, 5);
     console.log("🔄 ProductDescription rendered");
 
     useEffect(() => {
         hasAdded.current = false;
-    }, [selectedSize, product._id]);
+    }, [selectedSize, product?._id]);
+
+    useEffect(() => {
+        fetchProducts();
+        fetchAllProducts();
+    }, [id])
+
+    if (!product) {
+        return <div className="p-10 text-center text-gray-500 text-lg">Loading product...</div>;
+    }
+
+    console.log(`${Base_Url}/images/${product.images[0]}`)
 
     return (
         <>
             <div className="flex flex-col lg:flex-row gap-6 p-6">
                 {/* Left Column – 4 Thumbnails */}
                 <div className="flex lg:flex-col gap-4">
-                    {[...Array(4)].map((_, index) => (
+                    {product?.images?.length ? product.images : [product.image].map((_, index) => (
                         <img
                             key={index}
-                            src={product.image}
+                            src={`${Base_Url}/images/${product.images[0]}`}
+
                             alt={`Thumbnail ${index + 1}`}
                             className="w-20 h-20 object-cover rounded-md border cursor-pointer"
                         />
@@ -51,11 +93,11 @@ const ProductDescription = () => {
 
                 {/* Center Column – Main Image */}
                 <div className="flex-1 flex justify-center items-center">
-                    <img
-                        src={product.image}
+                    {product && <img
+                        src={`${Base_Url}/images/${product.images[0]}`}
                         alt={product.name}
                         className="w-full max-w-md object-cover rounded-lg shadow-md"
-                    />
+                    />}
                 </div>
 
                 {/* Right Column – Product Details */}
@@ -73,7 +115,7 @@ const ProductDescription = () => {
                     <div>
                         <p className="font-semibold mb-2">Select Size:</p>
                         <div className="flex gap-x-2">
-                            {product.sizes.map((size, index) => (
+                            {product.sizes?.map((size, index) => (
                                 <p
                                     key={index}
                                     className={`border px-3 py-1 rounded cursor-pointer hover:bg-gray-100 ${selectedSize === size ? "border-orange-500 bg-orange-100" : "border-gray-600"

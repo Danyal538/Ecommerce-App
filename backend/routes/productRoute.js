@@ -12,10 +12,10 @@ const storage = multer.diskStorage({
 })
 const upload = multer({ storage: storage });
 
-productRouter.post('/add', authMiddleware,  upload.single('image'), addProduct);
+productRouter.post('/add', authMiddleware, upload.array('image', 4), addProduct);
 productRouter.get('/list', allProductList);
 productRouter.post('/remove', authMiddleware, removeProduct);
-productRouter.post('/update',authMiddleware, updateProduct);
+productRouter.post('/update', authMiddleware, updateProduct);
 productRouter.get("/getProduct/:id", getProductById);
 
 export default productRouter;

@@ -1,5 +1,7 @@
 import React, { useContext } from 'react'
 import { Route, Routes, useParams } from 'react-router-dom'
+import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer } from "react-toastify"
 import Home from './pages/Home'
 import Collection from './pages/Collection'
 import Cart from './pages/Cart'
@@ -17,17 +19,18 @@ import ScrollToTop from './components/ScrollToTop'
 
 
 const App = () => {
-  const { currState } = useContext(AppContext);
+
   return (
     <div>
       <NavBar />
+      <ToastContainer  />
       <ScrollToTop />
       <Routes>
         <Route path='/' element={<Home />} />
         <Route path='/cart' element={<Cart />} />
         <Route path="/product/:id" element={<ProductDescription />} />
-        {currState === "Login" ? <Route path='/login' element={<Login />} />
-          : <Route path='/sign-up' element={<SignUp />} />}
+        <Route path='/login' element={<Login />} />
+        <Route path='/sign-up' element={<SignUp />} />
         <Route path='/collection' element={<Collection />} />
         <Route path='/cart' element={<Cart />} />
         <Route path='/payment' element={<DeliveryAndPayment />} />

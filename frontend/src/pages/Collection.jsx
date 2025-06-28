@@ -1,12 +1,11 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState, useRef } from 'react'
 import SideBar from '../components/SideBar'
-import { products } from '../assets/frontend_assets/assets'
 import ProductCard from '../components/ProductCard'
 import cross from "../assets/frontend_assets/cross_icon.png"
 import AppContext from '../../contexts/AppContext'
-import { useLocation } from 'react-router-dom'
-import { useRef } from 'react'
-
+import { data, useLocation } from 'react-router-dom'
+import axios from 'axios'
+import { toast } from 'react-toastify'
 
 const Collection = () => {
   const location = useLocation();
@@ -16,9 +15,33 @@ const Collection = () => {
   const dropDownRef = useRef();
   const [searchTerm, setSearchTerm] = useState("");
   const [sortOption, setSortOption] = useState("Relevant");
+  const [allProducts, setAllProducts] = useState([]);
 
-  const { showSearchBar, setShowSearchBar } = useContext(AppContext);
+  const { showSearchBar, setShowSearchBar, Base_Url } = useContext(AppContext);
+  const fetchedProducts = async () => {
+    try {
+      const token = localStorage.getItem("token");
+      console.log("TOKEN BEING SENT:", token);
+      const response = await axios.get(`${Base_Url}/api/product/list`, {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      });
+      const productsArray = response.data?.data;
+      if (response.data.success && Array.isArray(productsArray)) {
+        setAllProducts(productsArray);
+        toast.success("Fetched all Products Successfully");
+        console.log("API Response", response.data.data);
+      }
+      else {
+        toast.error("Error in fetching products")
+      }
+    } catch (error) {
+      toast.error("Error in fetching products list ")
+    }
+  };
 
+  console.log("allProducts", allProducts);
 
   const handleDropDown = () => {
     setIsDropdownOpen((prev) => (prev === "closed" ? "open" : "closed"));
@@ -29,94 +52,128 @@ const Collection = () => {
       if (dropDownRef.current && !dropDownRef.current.contains(event.target)) {
         setIsDropdownOpen("closed");
       }
-    }
+    };
     if (isDropdownOpen === "open") {
-      document.addEventListener('mousedown', handleClickOutside);
-    }
-    else {
-      document.removeEventListener('mousedown', handleClickOutside);
-
-    }
-
-    return (() => {
+      document.addEventListener("mousedown", handleClickOutside);
+    } else {
       document.removeEventListener("mousedown", handleClickOutside);
     }
-    )
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
   }, [isDropdownOpen]);
-
 
   useEffect(() => {
     if (location.state?.showSearchBar) {
       setShowSearchBar(true);
-    }
-    else {
+    } else {
       setShowSearchBar(false);
     }
   }, [location.state, setShowSearchBar]);
 
-  const filteredProducts = products.filter((p) =>
-    (selectedCategories.includes(p.category) || selectedCategories.length === 0) &&
-    (selectedTypes.includes(p.subCategory) || selectedTypes.length === 0) && (searchTerm === "" || p.name.toLowerCase().includes(searchTerm.toLowerCase())));
+  useEffect(() => {
+    fetchedProducts();
+  }, [])
+
+
+
+  const filteredProducts = allProducts.filter(
+    (p) =>
+      (selectedCategories.includes(p.category) || selectedCategories.length === 0) &&
+      (selectedTypes.includes(p.subCategory) || selectedTypes.length === 0) &&
+      (searchTerm === "" || p.name.toLowerCase().includes(searchTerm.toLowerCase()))
+  );
 
   const sortedProducts = [...filteredProducts].sort((a, b) => {
     if (sortOption === "High to low") return b.price - a.price;
     if (sortOption === "Low to High") return a.price - b.price;
     return 0;
-  })
-
+  });
 
   return (
-    <>
-      <div className="w-[1050px] h-[1px] border-t border-[#ADADAD] ml-[166px] mr-[166px] mt-[20px]"></div>
-      {/* search bar */}
-      {showSearchBar === true ? <div className='mt-10 flex justify-center items-center mb-10'>
-        <div>
-          <input onChange={(e) => setSearchTerm(e.target.value)} type="text" placeholder='Search' className='p-3 text-gray-400 border-1 rounded-full w-[800px]' />
-        </div>
-        <img src={cross} alt="" className='ml-2 h-[15px]' onClick={() => setShowSearchBar(false)} />
-      </div>
-        : null};
-      <div className="flex gap-8 mt-4">
+    <div className="px-4 sm:px-6 md:px-10 max-w-screen-xl mx-auto">
+      {/* Top Line */}
+      <div className="w-full h-[1px] border-t border-[#ADADAD] mt-6"></div>
 
-        {/* Sidebar - fixed width */}
-        <div className="w-[200px] shrink-0">
+      {/* Search Bar */}
+      {showSearchBar && (
+        <div className="mt-8 flex justify-center items-center mb-10 gap-3 flex-wrap">
+          <input
+            onChange={(e) => setSearchTerm(e.target.value)}
+            type="text"
+            placeholder="Search"
+            className="p-3 text-gray-600 border rounded-full w-[90vw] max-w-[700px]"
+          />
+          <img src={cross} alt="Close" className="h-[15px] cursor-pointer" onClick={() => setShowSearchBar(false)} />
+        </div>
+      )}
+
+      {/* Content Area */}
+      <div className="flex flex-col lg:flex-row lg:items-start gap-6 mt-4 w-full">
+        {/* Sidebar */}
+        <div className="w-full lg:w-[220px] flex-shrink-0">
           <SideBar
             selectedCategories={selectedCategories}
             setSelectedCategories={setSelectedCategories}
             selectedTypes={selectedTypes}
-            setSelectedTypes={setSelectedTypes} />
+            setSelectedTypes={setSelectedTypes}
+          />
         </div>
-        {/* Product Grid - takes remaining width */}
-        <div className='mr-5 ml-10 flex-col'>
-          <div className='flex justify-between items-center'>
-            <div className="flex items-center gap-2 mb-4">
-              <p className="font-outfit font-normal text-[35px] leading-[100%] uppercase">
-                <span className=' text-gray-400'>ALL</span> COLLECTIONS
+
+        {/* Products Grid */}
+        <div className="flex-1 min-w-0">
+          {/* Heading & Sort */}
+          <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-4 gap-3">
+            <div className="flex items-center gap-3">
+              <p className="font-outfit text-[30px] sm:text-[35px] leading-[100%] uppercase">
+                <span className="text-gray-400">ALL</span> COLLECTIONS
               </p>
-              <div className="w-[50px] h-[2px] bg-[#252525] rounded-[10px]"></div>
+              <div className="w-[40px] h-[2px] bg-[#252525] rounded-[10px] hidden sm:block"></div>
             </div>
 
-            <div className="relative mr-5" ref={dropDownRef}>
-              <button onClick={handleDropDown} className="flex items-center gap-1 border px-3 py-1 rounded-md text-sm" >Sort By <span>▼</span></button>
-              {isDropdownOpen === "open"
-                ? <div className="absolute right-0 mt-1 bg-white border rounded shadow-md text-sm w-[150px] z-10">
-                  <div className="px-3 py-2 hover:bg-blue-600 cursor-pointer " onClick={() => setSortOption("Relevant")}>Sort by: Relevant</div>
-                  <div className="px-3 py-2 hover:bg-blue-600 cursor-pointer" onClick={() => setSortOption("High to low")}>Sort by: High to Low</div>
-                  <div className="px-3 py-2 hover:bg-blue-600 cursor-pointer" onClick={() => setSortOption("Low to High")}>Sort by: Low to High</div>
+            {/* Sort Dropdown */}
+            <div className="relative" ref={dropDownRef}>
+              <button
+                onClick={handleDropDown}
+                className="flex items-center gap-1 border px-3 py-1 rounded-md text-sm hover:bg-gray-100"
+              >
+                Sort By <span>▼</span>
+              </button>
+              {isDropdownOpen === "open" && (
+                <div className="absolute right-0 mt-1 bg-white border rounded shadow-md text-sm w-[150px] z-10">
+                  <div
+                    className="px-3 py-2 hover:bg-blue-600 hover:text-white cursor-pointer"
+                    onClick={() => setSortOption("Relevant")}
+                  >
+                    Sort by: Relevant
+                  </div>
+                  <div
+                    className="px-3 py-2 hover:bg-blue-600 hover:text-white cursor-pointer"
+                    onClick={() => setSortOption("High to low")}
+                  >
+                    Sort by: High to Low
+                  </div>
+                  <div
+                    className="px-3 py-2 hover:bg-blue-600 hover:text-white cursor-pointer"
+                    onClick={() => setSortOption("Low to High")}
+                  >
+                    Sort by: Low to High
+                  </div>
                 </div>
-                : null}
-
-
+              )}
             </div>
           </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6 ">
-            {sortedProducts.map((product) => <ProductCard product={product} key={product._id} />)}
+
+          {/* Product Cards */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+            {sortedProducts.map((product) => (
+              <ProductCard product={product} key={product._id} />
+            ))}
           </div>
         </div>
       </div>
-    </>
-
-  )
-}
+    </div>
+  );
+};
 
 export default Collection;

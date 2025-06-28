@@ -4,27 +4,25 @@ import Subscription from '../components/Subscription'
 
 const AboutUs = () => {
   return (
-    <div className="px-[166px] mt-5">
-      {/* Top Border Line */}
-      <div className="w-full h-[1px] border-t border-[#ADADAD]"></div>
+    <div className="px-4 sm:px-8 md:px-16 lg:px-24 xl:px-40 mt-5">
 
       {/* Heading Centered Below Line */}
       <div className="flex flex-col items-center mt-10 mb-8">
         <div className="flex items-center gap-2">
-          <p className="text-[35px] font-outfit font-normal uppercase leading-[100%] text-center">
+          <p className="text-[28px] sm:text-[35px] font-outfit font-normal uppercase leading-[100%] text-center">
             <span className="text-gray-400">About</span> Us
           </p>
           <div className="w-[50px] h-[2px] bg-[#252525] rounded-[10px]"></div>
         </div>
       </div>
 
-      {/* About Image Aligned Left Slightly (adjust -ml- as needed) */}
-      <div className="flex gap-10 -ml-20">
+      {/* About Image + Text */}
+      <div className="flex flex-col lg:flex-row gap-10 items-center lg:items-start">
         {/* Image */}
         <img
           src={about}
           alt="About Us"
-          className="w-[400px] h-[500px]"
+          className="w-full max-w-[400px] h-auto object-cover"
         />
 
         {/* Text */}
@@ -34,44 +32,45 @@ const AboutUs = () => {
           </p>
           <p className="mb-4 text-[#6D6D6D]">
             Since our inception, we've worked tirelessly to curate a diverse selection of high-quality products that cater to every taste and preference. From fashion and beauty to electronics and home essentials, we offer an extensive collection sourced from trusted brands and suppliers.
-
           </p>
           <p className="text-xl mb-2 text-[#6D6D6D]">Our Mission</p>
-          <p className='mb-4 text-[#6D6D6D]'>
-            Our mission at Forever is to empower customers with choice, convenience, and confidence...
+          <p className="mb-4 text-[#6D6D6D]">
+            Our mission at Forever is to empower customers with choice, convenience, and confidence. We're dedicated to providing a seamless shopping experience that exceeds expectations, from browsing and ordering to delivery and beyond.
           </p>
         </div>
       </div>
 
-      <div className="flex flex-col items-start mt-16 mb-8 -ml-30">
-        <div className="flex items-center">
-          <p className="text-[35px] font-outfit font-bold uppercase leading-[100%] text-center w-[309px] h-[80px] rounded-[10px]">
-            <span className="text-gray-400 font-bold">WHY</span> CHOOSE US
+      {/* Why Choose Us Heading */}
+      <div className="flex flex-col items-start mt-16 mb-8">
+        <div className="flex items-center gap-2">
+          <p className="text-[28px] sm:text-[35px] font-outfit font-bold uppercase">
+            <span className="text-gray-400">WHY</span> CHOOSE US
           </p>
-          <div className="w-[50.81px] h-[2px] bg-[#252525] rounded-[10px] mb-10"></div>
+          <div className="w-[50px] h-[2px] bg-[#252525] rounded-[10px]"></div>
         </div>
       </div>
 
-      <div className="w-full border-[#ABABAB]">
-        <div className="grid grid-cols-1 md:grid-cols-3 divide-x border border-[#ABABAB] max-w-[1800px] h-auto mx-auto">
-          <div className="p-10 ">
-            <p className="font-outfit font-semibold text-[18px] leading-[100%] align-middle uppercase mb-8">Quality Assurance:</p>
-            <p className="font-outfit font-normal text-[18px] leading-[180%] align-middle capitalize text-[#6D6D6D]">We meticulously select and vet each product to ensure it meets our stringent quality standards.</p>
+      {/* Why Choose Us Features */}
+      <div className="w-full">
+        <div className="grid grid-cols-1 md:grid-cols-3 divide-y md:divide-y-0 md:divide-x border border-[#ABABAB] rounded-lg overflow-hidden">
+          <div className="p-6 sm:p-10">
+            <p className="font-outfit font-semibold text-[18px] uppercase mb-4">Quality Assurance:</p>
+            <p className="font-outfit text-[16px] text-[#6D6D6D]">We meticulously select and vet each product...</p>
           </div>
-          <div className="p-10">
-            <p className="font-outfit font-semibold text-[18px] leading-[100%] align-middle uppercase mb-8">Convenience:</p>
-            <p className="font-outfit font-normal text-[18px] leading-[180%] align-middle capitalize text-[#6D6D6D]">With our user-friendly interface and hassle-free ordering process, shopping has never been easier.</p>
+          <div className="p-6 sm:p-10">
+            <p className="font-outfit font-semibold text-[18px] uppercase mb-4">Convenience:</p>
+            <p className="font-outfit text-[16px] text-[#6D6D6D]">With our user-friendly interface and hassle-free ordering...</p>
           </div>
-          <div className="p-10">
-            <p className="font-outfit font-semibold text-[18px] leading-[100%] align-middle uppercase mb-8">Exceptional Customer Service:</p>
-            <p className="font-outfit font-normal text-[18px] leading-[180%] align-middle capitalize text-[#6D6D6D]">Our team of dedicated professionals is here to assist you, ensuring your satisfaction is our top priority.</p>
+          <div className="p-6 sm:p-10">
+            <p className="font-outfit font-semibold text-[18px] uppercase mb-4">Exceptional Customer Service:</p>
+            <p className="font-outfit text-[16px] text-[#6D6D6D]">Our team of dedicated professionals is here to assist you...</p>
           </div>
         </div>
       </div>
-      <Subscription className="mt-30" />
 
+      {/* Subscription */}
+      <Subscription className="mt-20" />
     </div>
-
   )
 }
 

@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 
 const SideBar = ({ selectedCategories, setSelectedCategories, selectedTypes, setSelectedTypes }) => {
     const categoryOptions = ['Men', "Women", "Kids"];
-    const typeOptions = ['Topwear', 'Bottomwear', "Winterwear"];
+    const typeOptions = ['TopWear', 'BottomWear', "WinterWear"];
 
     const handleCategoryChange = (option) => {
         setSelectedCategories(prev => prev.includes(option) ? prev.filter(item => item !== option) : [...prev, option]);

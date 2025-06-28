@@ -1,10 +1,10 @@
 import React, { useContext, useState } from 'react'
 import AppContext from '../../contexts/AppContext'
-import { assets, products } from '../assets/frontend_assets/assets';
 import { useParams } from 'react-router-dom';
+import bin from "../assets/frontend_assets/bin_icon.png"
 
 const CartProductCard = () => {
-  const { cartItems, removeFromCart } = useContext(AppContext);
+  const { cartItems, removeFromCart, Base_Url } = useContext(AppContext);
 
 
   return (
@@ -14,7 +14,7 @@ const CartProductCard = () => {
 
           {/* Left Section – Image + Info */}
           <div className="flex items-start gap-4">
-            <img src={item.image} alt={item.name} className="w-[115px] h-[130px] object-cover rounded" />
+            <img src={`${Base_Url}/images/${item.images[0]}`} alt={item.name} className="w-[115px] h-[130px] object-cover rounded" />
 
             <div className="flex flex-col justify-between">
               <p className="text-[#494949] font-[22px]">{item.name}</p>
@@ -30,7 +30,7 @@ const CartProductCard = () => {
 
           {/* Delete Icon */}
           <img
-            src={assets.bin_icon}
+            src={bin}
             alt="Delete"
             className="w-[22px] h-[22px] cursor-pointer"
             onClick={() => removeFromCart(item, item.size)}

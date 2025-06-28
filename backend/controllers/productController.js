@@ -5,9 +5,9 @@ import e from "express";
 
 //addProduct
 const addProduct = async (req, res) => {
-    let image_filename = `${req.file.filename}`;
-    if (!req.file) {
-        return res.status(400).json({ success: false, message: "Image is required" });
+    const image_filenames = req.files.map(file => file.filename)
+    if (!req.files || req.files.length === 0) {
+        return res.status(400).json({ success: false, message: "Atleast one Image is required" });
     }
     let sizes = req.body.sizes;
 
@@ -22,13 +22,14 @@ const addProduct = async (req, res) => {
         category: req.body.category,
         subCategory: req.body.subCategory,
         sizes: sizes,
-        images: [image_filename],
+        images: image_filenames,
         bestSeller: req.body.bestSeller,
 
     })
     try {
         await product.save();
-        res.json({ success: true, message: "Product added successfully" });
+        res.json({ success: true, message: "Product added successfully", product });
+        await product.save();
     } catch (error) {
         console.log(error);
         res.json({ success: false, message: "Error in adding product", error })
@@ -50,10 +51,12 @@ const allProductList = async (req, res) => {
 
 //removeProduct
 const removeProduct = async (req, res) => {
+
     try {
-        const product = await productModel.findById(req.body.id);
+        const { productId } = req.body;
+        const product = await productModel.findById(productId);
         fs.unlink(`uploads/${product.images}`, () => { })
-        await productModel.findByIdAndDelete(req.body.id);
+        await productModel.findByIdAndDelete(req.body.productId);
         res.json({ success: true, message: "Product Removed" });
     } catch (error) {
         console.log(error);
@@ -83,7 +86,7 @@ const updateProduct = async (req, res) => {
 }
 
 const getProductById = async (req, res) => {
-    const { id } = req.body;
+    const { id } = req.params;
     try {
         const product = await productModel.findById(id);
         res.json({ success: true, data: product });

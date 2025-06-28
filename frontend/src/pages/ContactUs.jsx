@@ -1,34 +1,36 @@
 import React from 'react'
 import contact from "../assets/frontend_assets/contact_img.png"
 import Subscription from '../components/Subscription'
+
 const ContactUs = () => {
   return (
     <>
-      <div>
+      <div className="px-4 sm:px-8 md:px-16 lg:px-24 xl:px-40">
         {/* Top Border */}
-        <div className="w-full h-[1px] border-t border-[#ADADAD]"></div>
+        {/* Removed to prevent line under navbar on large screens */}
+        {/* <div className="w-full h-[1px] border-t border-[#ADADAD]"></div> */}
 
         {/* Heading */}
-        <div className="flex flex-col items-center mt-16 mb-8">
-          <div className="flex items-center">
-            <p className="text-[35px] font-outfit font-bold uppercase leading-[100%] text-center w-[309px] h-[80px] rounded-[10px]">
-              <span className="text-gray-400 font-bold">CONTACT</span> US
+        <div className="flex flex-col items-center mt-10 mb-8">
+          <div className="flex items-center gap-2">
+            <p className="text-[28px] sm:text-[35px] font-outfit font-bold uppercase text-center">
+              <span className="text-gray-400">Contact</span> Us
             </p>
-            <div className="w-[50.81px] h-[2px] bg-[#252525] rounded-[10px] mb-10 -ml-8"></div>
+            <div className="w-[50px] h-[2px] bg-[#252525] rounded-[10px]"></div>
           </div>
         </div>
 
         {/* Main Content */}
-        <div className="flex items-start justify-center gap-16 mt-6 mb-20 px-10">
+        <div className="flex flex-col lg:flex-row items-center lg:items-start justify-center gap-12 mt-6 mb-20">
           {/* Image */}
           <img
             src={contact}
             alt="Contact"
-            className="w-[400px] h-[400px] object-cover rounded-md"
+            className="w-full max-w-[400px] h-auto object-cover rounded-md"
           />
 
           {/* Text Content */}
-          <div className="flex flex-col gap-6 max-w-md">
+          <div className="flex flex-col gap-6 max-w-xl text-center lg:text-left">
             <div>
               <p className="text-lg font-semibold uppercase">Our Store</p>
               <p className="text-base text-gray-700">
@@ -47,16 +49,16 @@ const ContactUs = () => {
               <p className="text-base text-gray-700">Learn more about our teams and job openings.</p>
             </div>
 
-            <button className="mt-2 px-6 py-2 bg-black text-white rounded-lg w-fit hover:bg-gray-800 transition">
+            <button className="mt-2 px-6 py-2 bg-black text-white rounded-lg mx-auto lg:mx-0 hover:bg-gray-800 transition">
               Explore Jobs
             </button>
           </div>
         </div>
       </div>
-      <Subscription className='mt-20' />
+
+      {/* Subscription Section */}
+      <Subscription className="mt-20" />
     </>
-
-
   )
 }
 

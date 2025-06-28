@@ -3,8 +3,11 @@ import express from "express";
 import bcrypt from "bcrypt"
 import jwt from "jsonwebtoken";
 import validator from "validator"
+import dotenv from "dotenv"
+dotenv.config();
 
 const createToken = (id) => {
+    console.log("SECRET USED FOR SIGN:", process.env.SECRET);
     return jwt.sign({ id }, process.env.SECRET);
 }
 
@@ -22,13 +25,13 @@ export const loginUser = async (req, res) => {
             return res.json({ success: false, message: "Invalid credentials" })
         }
         const token = createToken(user._id);
-        res.json({ success: true, token });
+        res.json({ success: true, token, user });
     } catch (error) {
         res.json({ success: false, message: "Error in login", error })
     }
 }
 
-//sign-up / register user
+//sign-up
 export const registerUser = async (req, res) => {
     const { name, email, password } = req.body;
     try {
@@ -55,10 +58,24 @@ export const registerUser = async (req, res) => {
         })
         const user = await newUser.save();
         const token = createToken(user._id);
-        res.json({ success: true, token });
+        res.json({ success: true, token, user: newUser });
 
     } catch (error) {
         console.log(error);
         res.json({ success: false, message: "Error in registering user", error });
     }
 }
+
+export const logout = async (req, res) => {
+    try {
+        res.clearCookie("token", {
+            httpOnly: true,
+            secure: true,
+            sameSite: "strict"
+        });
+        res.json({ success: true, message: "Logged out successfully" });
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({ success: false, message: "Error during logout", error });
+    }
+};

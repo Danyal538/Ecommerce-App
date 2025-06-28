@@ -1,18 +1,25 @@
 import mongoose from "mongoose";
 import orderModel from "../models/orderModel.js";
 import userModel from "../models/userModel.js";
+import Stripe from "stripe";
+import dotenv from "dotenv"
 
+dotenv.config();
+
+const stripe = new Stripe(process.env.SECRET_KEY);
 const placeOrder = async (req, res) => {
     try {
         const frontend_Url = "http://localhost:5173"
         const newOrder = new orderModel({
-            userId: req.body.id,
+            userId: req.body.userId,
             items: req.body.items,
             amount: req.body.amount,
             address: req.body.address,
         })
+
+
         await newOrder.save();
-        await userModel.findByIdAndUpdate(req.body.id, { cartData: {} });
+        await userModel.findByIdAndUpdate(req.body.userId, { cartData: {} });
 
         const line_items = req.body.items.map((item) => ({
             price_data: {
@@ -20,7 +27,7 @@ const placeOrder = async (req, res) => {
                 product_data: {
                     name: item.name
                 },
-                amount: item.price * 100
+                unit_amount: item.price * 100
             },
             quantity: item.quantity
         }))
@@ -31,8 +38,10 @@ const placeOrder = async (req, res) => {
                     name: "Delivery Charges",
                 },
                 unit_amount: 10 * 100
-            }
+            },
+            quantity: 1
         })
+        console.log("LineItems", line_items)
         const session = await stripe.checkout.sessions.create({
             line_items: line_items,
             mode: "payment",
@@ -77,7 +86,7 @@ const userOrders = async (req, res) => {
 const listOrders = async (req, res) => {
     try {
         const orders = await orderModel.find({});
-        res.json({ sucess: true, data: orders });
+        res.json({ success: true, data: orders });
     } catch (error) {
         console.log(error);
         res.json({ success: false, message: "Error in listing orders", error });
@@ -86,12 +95,26 @@ const listOrders = async (req, res) => {
 
 const updateStatus = async (req, res) => {
     try {
-        await orderModel.findByIdAndUpdate(req.body.id, { status: req.body.status });
-        res.json({ success: true, message: "Status updated" })
+        const { orderId, status } = req.body;
+
+        if (!orderId || !status) {
+            return res.status(400).json({ success: false, message: "ID and status are required" });
+        }
+
+        const exists = await orderModel.findById(orderId);
+        if (!exists) {
+            return res.status(404).json({ success: false, message: "Order not found" });
+        }
+
+        const updated = await orderModel.findByIdAndUpdate(orderId, { status }, { new: true });
+        console.log("Updated Order:", updated);
+
+        res.json({ success: true, message: "Status updated", updated });
     } catch (error) {
         console.log(error);
-        res.json({ success: false, message: "Error in updating status", error })
+        res.status(500).json({ success: false, message: "Error in updating status", error });
     }
-}
+};
+
 
 export { placeOrder, verifyOrder, userOrders, listOrders, updateStatus };

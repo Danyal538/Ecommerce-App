@@ -1,13 +1,15 @@
 import React, { useState, useCallback } from 'react'
 import AppContext from './AppContext';
-import { products } from '../src/assets/frontend_assets/assets';
 
 const AppProvider = ({ children }) => {
     const [showSearchBar, setShowSearchBar] = useState(false);
-    const [currState, setCurrState] = useState("");
+
     const [quantity, setQuantity] = useState(0);
     const [cartItems, setCartItems] = useState([]);
     const [selectedPayment, setSelectedPayment] = useState("stripe");
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const [user, setUser] = useState(null);
+    const Base_Url = "http://localhost:4000"
 
 
     const cartCount = cartItems.reduce((acc, item) => acc + item.quantity, 0);
@@ -52,7 +54,7 @@ const AppProvider = ({ children }) => {
     const totalPrice = cartItems.reduce((acc, item) => acc + item.price * item.quantity, 0);
     return (
         <AppContext.Provider value={{
-            showSearchBar, setShowSearchBar, currState, setCurrState, addToCart, cartCount, cartItems, totalPrice, shippingCost, removeFromCart, selectedPayment, setSelectedPayment
+            showSearchBar, setShowSearchBar, addToCart, cartCount, cartItems, totalPrice, shippingCost, removeFromCart, selectedPayment, setSelectedPayment, Base_Url, isLoggedIn, setIsLoggedIn, user, setUser
         }}>
             {children}
         </AppContext.Provider>
