@@ -15,9 +15,9 @@ admin/build/
 frontend/build/
 
 # Environment files
+backend/.env
 admin/.env
 frontend/.env
-backend/.env
 
 # OS-specific
 .DS_Store
