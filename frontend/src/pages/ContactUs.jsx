@@ -6,11 +6,6 @@ const ContactUs = () => {
   return (
     <>
       <div className="px-4 sm:px-8 md:px-16 lg:px-24 xl:px-40">
-        {/* Top Border */}
-        {/* Removed to prevent line under navbar on large screens */}
-        {/* <div className="w-full h-[1px] border-t border-[#ADADAD]"></div> */}
-
-        {/* Heading */}
         <div className="flex flex-col items-center mt-10 mb-8">
           <div className="flex items-center gap-2">
             <p className="text-[28px] sm:text-[35px] font-outfit font-bold uppercase text-center">
@@ -20,16 +15,13 @@ const ContactUs = () => {
           </div>
         </div>
 
-        {/* Main Content */}
         <div className="flex flex-col lg:flex-row items-center lg:items-start justify-center gap-12 mt-6 mb-20">
-          {/* Image */}
           <img
             src={contact}
             alt="Contact"
             className="w-full max-w-[400px] h-auto object-cover rounded-md"
           />
 
-          {/* Text Content */}
           <div className="flex flex-col gap-6 max-w-xl text-center lg:text-left">
             <div>
               <p className="text-lg font-semibold uppercase">Our Store</p>
@@ -56,7 +48,6 @@ const ContactUs = () => {
         </div>
       </div>
 
-      {/* Subscription Section */}
       <Subscription className="mt-20" />
     </>
   )

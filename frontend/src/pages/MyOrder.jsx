@@ -27,7 +27,9 @@ const MyOrder = () => {
     };
 
     useEffect(() => {
-        if (user?._id) getOrders(user._id);
+        if (user && user?._id) { 
+            getOrders(user._id);
+         }
     }, [user]);
 
     return (

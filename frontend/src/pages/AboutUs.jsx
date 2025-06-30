@@ -6,7 +6,6 @@ const AboutUs = () => {
   return (
     <div className="px-4 sm:px-8 md:px-16 lg:px-24 xl:px-40 mt-5">
 
-      {/* Heading Centered Below Line */}
       <div className="flex flex-col items-center mt-10 mb-8">
         <div className="flex items-center gap-2">
           <p className="text-[28px] sm:text-[35px] font-outfit font-normal uppercase leading-[100%] text-center">
@@ -16,16 +15,13 @@ const AboutUs = () => {
         </div>
       </div>
 
-      {/* About Image + Text */}
       <div className="flex flex-col lg:flex-row gap-10 items-center lg:items-start">
-        {/* Image */}
         <img
           src={about}
           alt="About Us"
           className="w-full max-w-[400px] h-auto object-cover"
         />
 
-        {/* Text */}
         <div className="flex-1">
           <p className="mb-4 text-[#6D6D6D]">
             Forever was born out of a passion for innovation and a desire to revolutionize the way people shop online. Our journey began with a simple idea: to provide a platform where customers can easily discover, explore, and purchase a wide range of products from the comfort of their homes.
@@ -39,8 +35,6 @@ const AboutUs = () => {
           </p>
         </div>
       </div>
-
-      {/* Why Choose Us Heading */}
       <div className="flex flex-col items-start mt-16 mb-8">
         <div className="flex items-center gap-2">
           <p className="text-[28px] sm:text-[35px] font-outfit font-bold uppercase">
@@ -50,7 +44,6 @@ const AboutUs = () => {
         </div>
       </div>
 
-      {/* Why Choose Us Features */}
       <div className="w-full">
         <div className="grid grid-cols-1 md:grid-cols-3 divide-y md:divide-y-0 md:divide-x border border-[#ABABAB] rounded-lg overflow-hidden">
           <div className="p-6 sm:p-10">
@@ -68,7 +61,6 @@ const AboutUs = () => {
         </div>
       </div>
 
-      {/* Subscription */}
       <Subscription className="mt-20" />
     </div>
   )

@@ -12,7 +12,6 @@ const CartProductCard = () => {
       {cartItems.map((item, index) => (
         <div key={index} className="flex items-center justify-between gap-6 p-4 border-1 border-[#D1D1D1]">
 
-          {/* Left Section – Image + Info */}
           <div className="flex items-start gap-4">
             <img src={`${Base_Url}/images/${item.images[0]}`} alt={item.name} className="w-[115px] h-[130px] object-cover rounded" />
 
@@ -25,10 +24,8 @@ const CartProductCard = () => {
             </div>
           </div>
 
-          {/* Quantity */}
           <p className="text-sm text-gray-700"> {item.quantity}</p>
 
-          {/* Delete Icon */}
           <img
             src={bin}
             alt="Delete"

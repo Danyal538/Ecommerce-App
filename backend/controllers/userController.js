@@ -79,3 +79,15 @@ export const logout = async (req, res) => {
         res.status(500).json({ success: false, message: "Error during logout", error });
     }
 };
+
+export const getProfile = async (req, res) => {
+    try {
+        const user = await userModel.findById(req.userId);
+        if (!user) {
+            return res.json({ success: false, message: "User not found" })
+        }
+        res.json({ success: true, user })
+    } catch (error) {
+        res.json({ success: false })
+    }
+}

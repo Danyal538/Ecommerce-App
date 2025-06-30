@@ -22,20 +22,16 @@ const Login = () => {
       console.log("Login response:", response.data);
       if (response.data.success) {
         localStorage.setItem("token", response.data.token);
-        console.log(response.data.token);
-        console.log("Logged in successfully");
         navigate('/');
         setIsLoggedIn(true);
         setUser(response.data.user);
-        console.log(user);
+        console.log(response.data.user._id)
         toast.success("Logged In successfully")
       }
     } catch (error) {
-      console.log(error);
       toast.error("Error in Login")
     }
   }
-  console.log("token:", localStorage.getItem("token"));
 
   return (
     <div className="flex items-center justify-center min-h-screen">

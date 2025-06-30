@@ -42,14 +42,11 @@ const NavBar = () => {
 
     return (
         <div className='w-full bg-white shadow-md'>
-            {/* Top Nav */}
             <div className='flex justify-between items-center px-6 py-4'>
-                {/* Logo */}
                 <Link to="/">
                     <img src={logo} alt="Logo" className='w-36 object-contain' />
                 </Link>
 
-                {/* Desktop Links */}
                 <div className='hidden md:flex gap-8 items-center'>
                     <NavLink className={({ isActive }) => isActive ? "border-b-2 border-gray-700" : "text-gray-600 hover:text-black"} to='/'>Home</NavLink>
                     <NavLink className={({ isActive }) => isActive ? "border-b-2 border-gray-700" : "text-gray-600 hover:text-black"} to='/collection'>Collection</NavLink>
@@ -58,7 +55,6 @@ const NavBar = () => {
                     <NavLink className={({ isActive }) => isActive ? "border-b-2 border-gray-700" : "text-gray-600 hover:text-black"} to={adminUrl}>Admin Panel</NavLink>
                 </div>
 
-                {/* Right Icons */}
                 <div className='flex items-center gap-4'>
                     <img
                         src={search_icon}
@@ -93,7 +89,6 @@ const NavBar = () => {
                         )}
                     </div>
 
-                    {/* Mobile Menu Icon */}
                     <img
                         src={menu}
                         alt="Menu"
@@ -103,7 +98,6 @@ const NavBar = () => {
                 </div>
             </div>
 
-            {/* Mobile Menu Dropdown */}
             {
                 menuOpen && (
                     <div className='flex flex-col items-center gap-4 pb-4 md:hidden'>

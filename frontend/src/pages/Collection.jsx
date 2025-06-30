@@ -92,10 +92,8 @@ const Collection = () => {
 
   return (
     <div className="px-4 sm:px-6 md:px-10 max-w-screen-xl mx-auto">
-      {/* Top Line */}
       <div className="w-full h-[1px] border-t border-[#ADADAD] mt-6"></div>
 
-      {/* Search Bar */}
       {showSearchBar && (
         <div className="mt-8 flex justify-center items-center mb-10 gap-3 flex-wrap">
           <input
@@ -108,9 +106,7 @@ const Collection = () => {
         </div>
       )}
 
-      {/* Content Area */}
       <div className="flex flex-col lg:flex-row lg:items-start gap-6 mt-4 w-full">
-        {/* Sidebar */}
         <div className="w-full lg:w-[220px] flex-shrink-0">
           <SideBar
             selectedCategories={selectedCategories}
@@ -120,9 +116,7 @@ const Collection = () => {
           />
         </div>
 
-        {/* Products Grid */}
         <div className="flex-1 min-w-0">
-          {/* Heading & Sort */}
           <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-4 gap-3">
             <div className="flex items-center gap-3">
               <p className="font-outfit text-[30px] sm:text-[35px] leading-[100%] uppercase">
@@ -131,7 +125,6 @@ const Collection = () => {
               <div className="w-[40px] h-[2px] bg-[#252525] rounded-[10px] hidden sm:block"></div>
             </div>
 
-            {/* Sort Dropdown */}
             <div className="relative" ref={dropDownRef}>
               <button
                 onClick={handleDropDown}
@@ -164,7 +157,6 @@ const Collection = () => {
             </div>
           </div>
 
-          {/* Product Cards */}
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
             {sortedProducts.map((product) => (
               <ProductCard product={product} key={product._id} />

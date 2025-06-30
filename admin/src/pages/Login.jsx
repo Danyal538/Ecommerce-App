@@ -23,8 +23,6 @@ const Login = () => {
             console.log("Login response:", response.data);
             if (response.data.success) {
                 localStorage.setItem("token", response.data.token);
-                console.log(response.data.token);
-                console.log("Logged in successfully");
                 setIsLoggedIn(true);
                 navigate('/');
                 toast.success("Logged In successfully")
@@ -34,7 +32,6 @@ const Login = () => {
             toast.error("Error in Login")
         }
     }
-    console.log("token:", localStorage.getItem("token"));
 
     return (
         <div className="flex items-center justify-center min-h-screen">

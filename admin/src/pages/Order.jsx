@@ -7,7 +7,6 @@ import parcel from "../assets/admin_assets/parcel_icon.svg"
 const Order = () => {
   const { Base_Url } = useContext(AppContext)
   const [orders, setOrders] = useState([]);
-  const [updateStatus, setUpdateStatus] = useState("Order Placed");
 
   const getOrders = async () => {
     const token = localStorage.getItem("token");
@@ -27,6 +26,7 @@ const Order = () => {
   }
 
   const statusUpdate = async (orderId, status) => {
+    const token = localStorage.getItem("token");
     try {
       const { data } = await axios.post(`${Base_Url}/api/order/update-status`, { orderId, status }, {
         headers: {

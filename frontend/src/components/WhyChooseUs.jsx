@@ -7,7 +7,6 @@ const WhyChooseUs = () => {
     return (
         <div className="container mx-auto px-4 mt-20">
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 text-center">
-                {/* ----------- Exchange ----------- */}
                 <div className="flex flex-col items-center space-y-2 max-w-xs mx-auto">
                     <img src={exchange} alt="Exchange" className="w-[52px] h-[52px]" />
                     <p className="font-outfit font-semibold text-[18px]">Easy Exchange Policy</p>
@@ -16,7 +15,6 @@ const WhyChooseUs = () => {
                     </p>
                 </div>
 
-                {/* ----------- Return Policy ----------- */}
                 <div className="flex flex-col items-center space-y-2 max-w-xs mx-auto">
                     <img src={quality} alt="Return" className="w-[52px] h-[52px]" />
                     <p className="font-outfit font-semibold text-[18px]">7 Days Return Policy</p>
@@ -25,7 +23,6 @@ const WhyChooseUs = () => {
                     </p>
                 </div>
 
-                {/* ----------- Support ----------- */}
                 <div className="flex flex-col items-center space-y-2 max-w-xs mx-auto">
                     <img src={support} alt="Support" className="w-[52px] h-[52px]" />
                     <p className="font-outfit font-semibold text-[18px]">Best Customer Support</p>

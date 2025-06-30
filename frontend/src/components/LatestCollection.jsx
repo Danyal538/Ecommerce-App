@@ -35,7 +35,6 @@ const LatestCollection = () => {
     }, [])
     return (
         <div className="max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-            {/* Heading */}
             <div className="text-center mb-10">
                 <p className="text-3xl sm:text-4xl font-semibold leading-tight uppercase font-outfit flex items-center justify-center flex-wrap">
                     <span className="text-gray-500 mr-2">Latest</span>
@@ -47,8 +46,6 @@ const LatestCollection = () => {
                     Lorem ipsum dolor sit amet consectetur adipisicing elit. Nemo, possimus?
                 </p>
             </div>
-
-            {/* Products Grid */}
             <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6'>
                 {allProducts.slice(0, 10).map((product) => (
                     <ProductCard key={product._id} product={product} />

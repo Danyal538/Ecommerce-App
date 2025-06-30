@@ -1,5 +1,8 @@
 import React, { useState, useCallback } from 'react'
 import AppContext from './AppContext';
+import { useEffect } from 'react';
+import axios from 'axios';
+import { toast } from 'react-toastify';
 
 const AppProvider = ({ children }) => {
     const [showSearchBar, setShowSearchBar] = useState(false);
@@ -52,6 +55,34 @@ const AppProvider = ({ children }) => {
         }
     }
     const totalPrice = cartItems.reduce((acc, item) => acc + item.price * item.quantity, 0);
+
+    useEffect(() => {
+        const token = localStorage.getItem("token");
+        if (!token) {
+            return
+        }
+        const checkAuth = async () => {
+            try {
+                const { data } = await axios.get(`${Base_Url}/api/user/profile`, {
+                    headers: {
+                        Authorization: `Bearer ${token}`
+                    }
+                })
+                if (data.success) {
+                    setUser(data.user)
+                    setIsLoggedIn(true);
+                    console.log("✅ Auth success, user:", data.user);
+                }
+                else {
+                    setIsLoggedIn(false)
+                }
+            } catch (error) {
+                setIsLoggedIn(false);
+            }
+        }
+        checkAuth()
+    },
+        [])
     return (
         <AppContext.Provider value={{
             showSearchBar, setShowSearchBar, addToCart, cartCount, cartItems, totalPrice, shippingCost, removeFromCart, selectedPayment, setSelectedPayment, Base_Url, isLoggedIn, setIsLoggedIn, user, setUser

@@ -12,6 +12,7 @@ const ProductDescription = () => {
     const [selectedSize, setSelectedSize] = useState(null);
     const [product, setProduct] = useState(null);
     const [allProducts, setAllProducts] = useState([]);
+    const [mainImage, setMainImage] = useState("");
 
 
     const { addToCart, Base_Url } = useContext(AppContext);
@@ -23,6 +24,7 @@ const ProductDescription = () => {
             if (response.data.success) {
                 toast.success("Product fetched");
                 setProduct(response.data.data);
+                setMainImage(response.data.data.images[0])
                 console.log(response.data);
             }
             else { toast.error("Error in Product finding") }
@@ -79,13 +81,15 @@ const ProductDescription = () => {
             <div className="flex flex-col lg:flex-row gap-6 p-6">
                 {/* Left Column – 4 Thumbnails */}
                 <div className="flex lg:flex-col gap-4">
-                    {product?.images?.length ? product.images : [product.image].map((_, index) => (
+                    {(product?.images?.length ? product.images : [product.image]).map((img, index) => (
                         <img
                             key={index}
-                            src={`${Base_Url}/images/${product.images[0]}`}
+                            src={`${Base_Url}/images/${img}`}
+                            onClick={() => setMainImage(img)}
 
                             alt={`Thumbnail ${index + 1}`}
-                            className="w-20 h-20 object-cover rounded-md border cursor-pointer"
+                            className={`w-20 h-20 object-cover rounded-md border cursor-pointer ${mainImage === img ? "ring-2 ring-orange-400" : ""
+                                }`}
                         />
                     ))}
 
@@ -94,7 +98,7 @@ const ProductDescription = () => {
                 {/* Center Column – Main Image */}
                 <div className="flex-1 flex justify-center items-center">
                     {product && <img
-                        src={`${Base_Url}/images/${product.images[0]}`}
+                        src={`${Base_Url}/images/${mainImage}`}
                         alt={product.name}
                         className="w-full max-w-md object-cover rounded-lg shadow-md"
                     />}
@@ -107,7 +111,7 @@ const ProductDescription = () => {
 
                     <div className="flex items-center gap-4">
                         <p className="text-yellow-500">⭐⭐⭐⭐</p>
-                        <p className="text-gray-600">({product.numReviews} reviews)</p>
+                        <p className="text-gray-600">(70)</p>
                     </div>
 
                     <p className="text-[#555555]">{product.description}</p>

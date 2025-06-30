@@ -37,7 +37,6 @@ const BestSeller = () => {
     }, [])
     return (
         <div className="w-full px-4 md:px-8 mt-20">
-            {/* ---------- Heading ---------- */}
             <div className="text-center">
                 <p className="text-[30px] sm:text-[35px] font-semibold leading-[100%] uppercase font-outfit flex justify-center items-center">
                     <span className="text-gray-500 mr-1">BEST</span>
@@ -50,7 +49,6 @@ const BestSeller = () => {
                 </p>
             </div>
 
-            {/* ---------- Product Cards Grid ---------- */}
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6 mt-8">
                 {allProducts
                     .filter(product => product.bestSeller === true)

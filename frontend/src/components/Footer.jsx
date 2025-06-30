@@ -5,10 +5,8 @@ import { NavLink } from 'react-router-dom';
 const Footer = () => {
     return (
         <footer className="bg-gray-100 text-gray-800 font-outfit">
-            {/* Top Footer Section */}
             <div className="container mx-auto px-6 md:px-10 py-12 flex flex-col md:flex-row gap-10">
 
-                {/* Logo + Description */}
                 <div className="md:w-1/2">
                     <img src={Logo} alt="Logo" className="w-[140px] md:w-[166px] h-auto" />
                     <p className="mt-6 text-[16px] leading-[28px] text-[#595959]">
@@ -17,7 +15,7 @@ const Footer = () => {
                     </p>
                 </div>
 
-                {/* Company Links */}
+
                 <div className="md:w-1/4">
                     <p className="text-[20px] font-semibold mb-4 text-[#5A5A5A]">Company</p>
                     <nav className="flex flex-col gap-2 text-[16px] text-[#595959]">
@@ -28,7 +26,6 @@ const Footer = () => {
                     </nav>
                 </div>
 
-                {/* Contact Info */}
                 <div className="md:w-1/4">
                     <p className="text-[20px] font-semibold mb-4 text-[#5A5A5A]">Get In Touch</p>
                     <p className="text-[16px] text-[#595959] mb-1">+92-00980-12121</p>
@@ -36,7 +33,6 @@ const Footer = () => {
                 </div>
             </div>
 
-            {/* Bottom Bar */}
             <div className="border-t border-[#BDBDBD] mt-4 py-4">
                 <p className="text-center text-[14px] text-[#565656]">
                     © 2024 Forever.dev — All Rights Reserved.

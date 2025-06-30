@@ -10,7 +10,6 @@ const CartPage = () => {
 
   return (
     <div className="flex flex-col px-4 sm:px-6 md:px-10 py-6 sm:py-10 min-h-screen bg-[#f9f9f9]">
-      {/* Heading */}
       <div className="flex items-center mb-6 sm:mb-8">
         <p className="font-outfit font-semibold text-[24px] sm:text-[30px] uppercase leading-tight">
           <span className="text-[#707070]">Your</span> Cart
@@ -18,9 +17,7 @@ const CartPage = () => {
         <div className="ml-2 h-[2px] bg-[#252525] rounded-[10px] w-[30px]"></div>
       </div>
 
-      {/* Cart Items + Totals */}
       <div className="flex flex-col lg:flex-row justify-between gap-6 md:gap-10">
-        {/* Cart Items */}
         <div className="flex-1">
           {cartItems.length > 0 ? (
             <CartProductCard />
@@ -29,7 +26,6 @@ const CartPage = () => {
           )}
         </div>
 
-        {/* Cart Totals */}
         <div className="w-full lg:w-[320px] flex-shrink-0 border p-4 sm:p-6 rounded-md shadow-md bg-white self-start">
           <div className="flex items-center mb-4">
             <p className="font-outfit font-semibold text-[20px] sm:text-[24px] uppercase">
