@@ -14,7 +14,7 @@ const NavBar = () => {
     const { isLoggedIn, setIsLoggedIn, cartCount, Base_Url } = useContext(AppContext);
     const [menuOpen, setMenuOpen] = useState(false);
     const [dropdownOpen, setDropdownOpen] = useState(false);
-    const adminUrl = "http://localhost:5174"
+    const adminUrl = "https://ecommerce-app-admin-panel.vercel.app"
     const dropdownRef = useRef(null);
 
     useEffect(() => {
