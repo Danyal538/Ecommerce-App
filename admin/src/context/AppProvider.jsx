@@ -4,7 +4,7 @@ import { useEffect } from "react";
 import axios from "axios"
 
 const AppProvider = ({ children }) => {
-    const Base_Url = "https://ecommercebackend-production-ec6d.up.railway.app/";
+    const Base_Url = "https://ecommercebackend-production-ec6d.up.railway.app";
     const [isLoggedIn, setIsLoggedIn] = useState(false);
 
     useEffect(() => {
