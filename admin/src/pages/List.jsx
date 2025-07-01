@@ -8,7 +8,7 @@ import AppContext from '../context/AppContext';
 
 
 const List = () => {
-    const Base_Url = useContext(AppContext);
+    const { Base_Url } = useContext(AppContext);
     const token = localStorage.getItem("token");
     const [allProducts, setAllProducts] = useState([]);
     const fetchProducts = async () => {
