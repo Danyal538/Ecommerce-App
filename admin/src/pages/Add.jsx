@@ -3,10 +3,13 @@ import upload from "../assets/admin_assets/upload_area.png"
 import axios from "axios"
 import { useState } from 'react'
 import { toast } from "react-toastify"
+import { useContext } from 'react'
+import AppContext from '../context/AppContext'
 
-const Base_Url = "http://localhost:4000"
 
 const Add = () => {
+
+  const { Base_Url } = useContext(AppContext);
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [category, setCategory] = useState();
@@ -16,6 +19,7 @@ const Add = () => {
   const [selectedSizes, setSelectedSizes] = useState([]);
   const [images, setImages] = useState([]);
   const [imagePreviews, setImagePreviews] = useState([]);
+
   const addProduct = async () => {
     const token = localStorage.getItem("token");
 
