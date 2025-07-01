@@ -1,3 +1,4 @@
+import { useLocation } from 'react-router-dom';
 import React, { useContext, useEffect, useState } from 'react';
 import AppContext from '../../contexts/AppContext';
 import axios from 'axios';
@@ -5,6 +6,7 @@ import { toast } from 'react-toastify';
 import { useSearchParams } from 'react-router-dom';
 
 const MyOrder = () => {
+    const location = useLocation();
     const { Base_Url, user } = useContext(AppContext);
     const [orders, setOrders] = useState([]);
     const [searchParams] = useSearchParams();
@@ -34,23 +36,30 @@ const MyOrder = () => {
         if (user && user?._id) {
             getOrders(user._id);
         }
-        if (success && orderId) {
-            const verifyPayment = async () => {
-                try {
-                    const { data } = await axios.post(`${Base_Url}/api/order/verify`, { success, orderId });
-                    if (data.success) {
-                        toast.success("Payment verified");
-                    }
-                    else {
-                        toast.error("Error in payment verification")
-                    }
-                } catch (error) {
-                    toast.error("Payment verification failed");
+    }, [user]);
+
+    useEffect(() => {
+        const verifyPayment = async () => {
+            try {
+                const { data } = await axios.post(`${Base_Url}/api/order/verify`, {
+                    success,
+                    orderId,
+                });
+                if (data.success) {
+                    toast.success("Payment verified!");
+                } else {
+                    toast.error("Payment verification failed!");
                 }
-            };
+            } catch (error) {
+                toast.error("Error verifying payment");
+            }
+        };
+
+        if (success && orderId) {
             verifyPayment();
         }
-    }, [user, success, orderId]);
+    }, [success, orderId]);
+
 
     return (
         <div className="px-4 sm:px-6 md:px-10 py-6 min-h-screen bg-[#f9f9f9]">
