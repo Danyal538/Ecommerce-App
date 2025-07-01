@@ -3,8 +3,10 @@ import axios from "axios"
 import { useState } from 'react'
 import { toast } from "react-toastify";
 import { useEffect } from 'react';
+import { useContext } from 'react';
+import AppContext from '../context/AppContext';
 
-const Base_Url = "http://localhost:4000"
+const Base_Url = useContext(AppContext);
 const List = () => {
     const token = localStorage.getItem("token");
     const [allProducts, setAllProducts] = useState([]);
