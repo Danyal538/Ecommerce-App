@@ -2,10 +2,14 @@ import React, { useContext, useEffect, useState } from 'react';
 import AppContext from '../../contexts/AppContext';
 import axios from 'axios';
 import { toast } from 'react-toastify';
+import { useSearchParams } from 'react-router-dom';
 
 const MyOrder = () => {
     const { Base_Url, user } = useContext(AppContext);
     const [orders, setOrders] = useState([]);
+    const [searchParams] = useSearchParams();
+    const success = searchParams.get("success");
+    const orderId = searchParams.get("orderId");
 
     const getOrders = async (userId) => {
         const token = localStorage.getItem("token");
@@ -27,10 +31,26 @@ const MyOrder = () => {
     };
 
     useEffect(() => {
-        if (user && user?._id) { 
+        if (user && user?._id) {
             getOrders(user._id);
-         }
-    }, [user]);
+        }
+        if (success && orderId) {
+            const verifyPayment = async () => {
+                try {
+                    const { data } = await axios.post(`${Base_Url}/api/order/verify`, { success, orderId });
+                    if (data.success) {
+                        toast.success("Payment verified");
+                    }
+                    else {
+                        toast.error("Error in payment verification")
+                    }
+                } catch (error) {
+                    toast.error("Payment verification failed");
+                }
+            };
+            verifyPayment();
+        }
+    }, [user, success, orderId]);
 
     return (
         <div className="px-4 sm:px-6 md:px-10 py-6 min-h-screen bg-[#f9f9f9]">
