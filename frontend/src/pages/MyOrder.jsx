@@ -5,6 +5,8 @@ import axios from 'axios';
 import { toast } from 'react-toastify';
 import { useSearchParams } from 'react-router-dom';
 
+
+
 const MyOrder = () => {
     const location = useLocation();
     const { Base_Url, user } = useContext(AppContext);
@@ -12,6 +14,12 @@ const MyOrder = () => {
     const [searchParams] = useSearchParams();
     const success = searchParams.get("success");
     const orderId = searchParams.get("orderId");
+
+    console.log("📍 Query Params at top:", {
+        success: searchParams.get("success"),
+        orderId: searchParams.get("orderId"),
+    });
+
 
     const getOrders = async (userId) => {
         const token = localStorage.getItem("token");
@@ -39,12 +47,25 @@ const MyOrder = () => {
     }, [user]);
 
     useEffect(() => {
+        if (!success || !orderId) {
+            console.log("⏳ Waiting for query params...");
+            return;
+        }
+        console.log("✅ useEffect for payment verification triggered", { success, orderId });
         const verifyPayment = async () => {
+            const token = localStorage.getItem("token");
+            console.log("🔁 Sending verify request:", { success, orderId });
+            console.log("📡 Verifying with URL:", `${Base_Url}/api/order/verify-order`);
             try {
-                const { data } = await axios.post(`${Base_Url}/api/order/verify`, {
+                const { data } = await axios.post(`${Base_Url}/api/order/verify-order`, {
                     success,
                     orderId,
+                }, {
+                    headers: {
+                        Authorization: `Bearer ${token}`
+                    }
                 });
+                console.log(data)
                 if (data.success) {
                     toast.success("Payment verified!");
                 } else {
