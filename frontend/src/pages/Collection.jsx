@@ -126,7 +126,7 @@ const Collection = () => {
                 onClick={handleDropDown}
                 className="flex items-center justify-between w-full gap-1 border px-3 py-2 rounded-md text-sm hover:bg-gray-100 bg-white"
               >
-                Sort By <span className="text-xs">▼</span>
+                Sort by: {sortOption} <span className="text-xs">▼</span>
               </button>
 
               {isDropdownOpen === "open" && (
