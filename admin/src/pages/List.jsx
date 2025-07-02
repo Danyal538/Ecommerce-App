@@ -23,7 +23,6 @@ const List = () => {
             }
         } catch (error) {
             toast.error("Error");
-            console.log(error)
         }
 
     }
@@ -41,12 +40,9 @@ const List = () => {
             }
             else {
                 toast.error("Error in deleting product")
-                console.log(response.data);
-
             }
         } catch (error) {
             toast.error("Error in deleting product")
-            console.log(error);
         }
     }
     useEffect(() => {
@@ -54,10 +50,8 @@ const List = () => {
     }, [])
     return (
         <div className="p-4">
-            {/* ---------- Title ---------- */}
             <p className='text-gray-700 text-xl font-semibold mb-4'>All Products List</p>
 
-            {/* ---------- Header Row ---------- */}
             <div className='grid grid-cols-5 gap-4 px-4 py-2 bg-gray-100 border border-gray-300 rounded'>
                 <p className='font-bold text-gray-700'>Image</p>
                 <p className='font-bold text-gray-700'>Name</p>
@@ -66,7 +60,6 @@ const List = () => {
                 <p className='font-bold text-gray-700'>Action</p>
             </div>
 
-            {/* ---------- Product Rows ---------- */}
             <div className="mt-3 flex flex-col gap-2">
                 {allProducts.map((product, index) => (
                     <div

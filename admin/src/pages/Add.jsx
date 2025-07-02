@@ -42,14 +42,12 @@ const Add = () => {
         toast.error("All fields are required");
         return;
       }
-      console.log("token", token)
       const response = await axios.post(`${Base_Url}/api/product/add`, formData, {
         headers: { "Content-Type": "multipart/form-data", "Authorization": `Bearer ${token}` },
 
       })
       if (response.data.success) {
         toast.success("Product Added");
-        console.log(response.data);
       }
       else {
         toast.error("Error in adding product")
@@ -71,20 +69,17 @@ const Add = () => {
   return (
     <div className="max-w-4xl mx-auto p-6 bg-white rounded-lg shadow-md">
 
-      {/* ---------- Upload Images Section ---------- */}
       <div className="mb-4">
         <p className="text-xl font-semibold text-gray-700 mb-3">Upload Images</p>
         <div className="grid grid-cols-4 gap-4 items-center">
           {[0, 1, 2, 3].map((index) => (
             <label key={index} htmlFor={`imageUpload-${index}`} className="cursor-pointer relative group">
-              {/* Preview or Upload Placeholder */}
               <img
                 src={imagePreviews[index] || upload}
                 alt={`upload-preview-${index}`}
                 className="w-full h-28 object-contain rounded-md hover:shadow"
               />
 
-              {/* Hidden File Input */}
               <input
                 type="file"
                 id={`imageUpload-${index}`}
@@ -108,7 +103,6 @@ const Add = () => {
         </div>
       </div>
 
-      {/* ---------- Product Name Input ---------- */}
       <div className="mb-6">
         <p className="text-lg font-medium text-gray-700 mb-2">Product Name</p>
         <input
@@ -119,7 +113,6 @@ const Add = () => {
         />
       </div>
 
-      {/* ---------- Product Description Input ---------- */}
       <div className="mb-6">
         <p className="text-lg font-medium text-gray-700 mb-2">Product Description</p>
         <textarea
@@ -131,8 +124,6 @@ const Add = () => {
         />
       </div>
 
-      {/* ---------- Category & Subcategory Section ---------- */}
-      {/* ---------- Category, Subcategory & Price Section ---------- */}
       <div className="grid grid-cols-3 gap-6 mb-6">
         <div>
           <p className="text-lg font-medium text-gray-700 mb-2">Product Category</p>
@@ -164,7 +155,6 @@ const Add = () => {
       </div>
 
 
-      {/* ---------- Product Sizes ---------- */}
       <div className="mb-6">
         <p className="text-lg font-medium text-gray-700 mb-3">Product Sizes</p>
         <div className="flex gap-4 flex-wrap">
@@ -186,14 +176,11 @@ const Add = () => {
         </div>
       </div>
 
-
-      {/* ---------- Bestseller Checkbox ---------- */}
       <div className="mb-6 flex items-center gap-2">
         <input type="checkbox" id="bestseller" className="w-4 h-4" onChange={(e) => setBestSeller(e.target.checked)} />
         <label htmlFor="bestseller" className="text-gray-700">Add to Bestseller</label>
       </div>
 
-      {/* ---------- Submit Button ---------- */}
       <button className="w-[200px] bg-black text-white py-3 rounded-md text-lg hover:bg-gray-800 transition" onClick={addProduct}>
         Add Product
       </button>
