@@ -110,9 +110,18 @@ const Order = () => {
               {order.address.zipcode && `, ${order.address.zipcode}`}
             </p>
           </div>
+          <div className='mt-2 text-sm text-gray-700'>
+            <p>Payment Method: <span className="font-medium">{order.paymentMethod || "N/A"}</span></p>
+            <p>Status:{" "}
+              <span className={`font-medium ${order.payment ? "text-green-700" : "text-red-600"}`}>
+                {order.payment ? "Paid" : "Not Paid"}
+              </span>
+            </p>
+          </div>
         </div>
-      ))}
-    </div>
+      ))
+      }
+    </div >
   )
 }
 

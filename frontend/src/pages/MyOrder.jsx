@@ -48,14 +48,10 @@ const MyOrder = () => {
 
     useEffect(() => {
         if (!success || !orderId) {
-            console.log("⏳ Waiting for query params...");
             return;
         }
-        console.log("✅ useEffect for payment verification triggered", { success, orderId });
         const verifyPayment = async () => {
             const token = localStorage.getItem("token");
-            console.log("🔁 Sending verify request:", { success, orderId });
-            console.log("📡 Verifying with URL:", `${Base_Url}/api/order/verify-order`);
             try {
                 const { data } = await axios.post(`${Base_Url}/api/order/verify-order`, {
                     success,
@@ -65,7 +61,6 @@ const MyOrder = () => {
                         Authorization: `Bearer ${token}`
                     }
                 });
-                console.log(data)
                 if (data.success) {
                     toast.success("Payment verified!");
                 } else {
