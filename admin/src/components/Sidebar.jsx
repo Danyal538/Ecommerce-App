@@ -10,7 +10,7 @@ const Sidebar = () => {
      ${isActive ? 'bg-gray-200 font-semibold' : 'hover:bg-gray-100'}`
 
   return (
-    <div className="flex flex-col gap-3 p-4 h-full bg-white w-full">
+    <div className=" flex flex-col gap-3 w-full">
       <NavLink to="add" className={linkClasses}>
         <img src={add} alt="Add" className="w-5 h-5" />
         <p>Add Items</p>
@@ -25,7 +25,7 @@ const Sidebar = () => {
         <img src={order} alt="Order" className="w-5 h-5" />
         <p>Order</p>
       </NavLink>
-    </div>
+    </div >
   )
 }
 
