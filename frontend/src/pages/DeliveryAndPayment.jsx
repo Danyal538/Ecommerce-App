@@ -69,6 +69,9 @@ const DeliveryAndPayment = () => {
       }
     } catch (error) {
       toast.error("Error in order placement")
+      console.error("🛑 Order placement error:", error?.response?.data || error.message);
+      toast.error("Error in order placement");
+
     }
   }
 
