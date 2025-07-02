@@ -20,7 +20,6 @@ const LatestCollection = () => {
             });
             if (response.data.success) {
                 setAllProducts(response.data.data);
-                toast.success("Product Fetched");
             }
             else {
                 toast.error("Error in fetching product");

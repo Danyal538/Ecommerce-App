@@ -89,7 +89,6 @@ const MyOrder = () => {
             <div className="space-y-6">
                 {orders.map((order) => (
                     <div key={order._id} className="bg-white border border-[#D1D1D1] rounded-md p-6 flex flex-col gap-4">
-                        {/* Header with date & amount */}
                         <div className="flex justify-between items-center">
                             <p className="font-semibold">
                                 Order on {new Date(order.date).toLocaleDateString()}
@@ -99,7 +98,6 @@ const MyOrder = () => {
                             </p>
                         </div>
 
-                        {/* Items */}
                         <div className="space-y-2">
                             {order.items.map((prod, idx) => (
                                 <div key={idx} className="flex justify-between border-b pb-2 last:border-none">
@@ -109,7 +107,6 @@ const MyOrder = () => {
                             ))}
                         </div>
 
-                        {/* Shipping Address */}
                         <div className="text-gray-600">
                             <p>Ship To:</p>
                             <p>
@@ -117,12 +114,10 @@ const MyOrder = () => {
                             </p>
                         </div>
 
-                        {/* Order Status */}
                         <p className={`font-semibold ${order.status === 'Delivered' ? 'text-green-700' : 'text-blue-700'}`}>
                             Status: {order.status}
                         </p>
 
-                        {/* Track Button */}
                         <div className="text-right">
                             <button className="bg-black text-white px-4 py-2 rounded hover:bg-gray-800">
                                 Track Order

@@ -18,14 +18,12 @@ const ProductDescription = () => {
     const { addToCart, Base_Url } = useContext(AppContext);
 
     const fetchProducts = async () => {
-        console.log("🆔 Product ID from route:", id);
         try {
             const response = await axios.get(`${Base_Url}/api/product/getProduct/${id}`)
             if (response.data.success) {
                 toast.success("Product fetched");
                 setProduct(response.data.data);
                 setMainImage(response.data.data.images[0])
-                console.log(response.data);
             }
             else { toast.error("Error in Product finding") }
         } catch (error) {
@@ -59,7 +57,6 @@ const ProductDescription = () => {
         )
         : [];
     const limitedRelatedProducts = relatedProducts.slice(0, 5);
-    console.log("🔄 ProductDescription rendered");
 
     useEffect(() => {
         hasAdded.current = false;
@@ -74,12 +71,10 @@ const ProductDescription = () => {
         return <div className="p-10 text-center text-gray-500 text-lg">Loading product...</div>;
     }
 
-    console.log(`${Base_Url}/images/${product.images[0]}`)
 
     return (
         <>
             <div className="flex flex-col lg:flex-row gap-6 p-6">
-                {/* Left Column – 4 Thumbnails */}
                 <div className="flex lg:flex-col gap-4">
                     {(product?.images?.length ? product.images : [product.image]).map((img, index) => (
                         <img
@@ -95,7 +90,6 @@ const ProductDescription = () => {
 
                 </div>
 
-                {/* Center Column – Main Image */}
                 <div className="flex-1 flex justify-center items-center">
                     {product && <img
                         src={`${Base_Url}/images/${mainImage}`}
@@ -104,7 +98,6 @@ const ProductDescription = () => {
                     />}
                 </div>
 
-                {/* Right Column – Product Details */}
                 <div className="flex-1 space-y-4">
                     <p className="text-2xl font-semibold">{product.name}</p>
                     <p className="font-outfit font-medium text-[32px] leading-[100%] align-middle tracking-[0%] text-[#2A2A2A]">${product.price}</p>

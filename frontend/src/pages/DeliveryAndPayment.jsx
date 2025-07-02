@@ -33,12 +33,6 @@ const DeliveryAndPayment = () => {
       return;
     }
     const address = { firstName, lastName, street, city, state, country, zipcode }
-    console.log("Sending data to backend:", {
-      amount: totalPrice + shippingCost,
-      items: cartItems,
-      userId: user._id,
-      address,
-    });
     try {
       const token = localStorage.getItem("token");
       const response = await axios.post(`${Base_Url}/api/order/place-order`,
@@ -69,7 +63,6 @@ const DeliveryAndPayment = () => {
       }
     } catch (error) {
       toast.error("Error in order placement")
-      console.error("🛑 Order placement error:", error?.response?.data || error.message);
       toast.error("Error in order placement");
 
     }

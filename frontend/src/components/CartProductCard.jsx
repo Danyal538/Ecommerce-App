@@ -6,7 +6,6 @@ import bin from "../assets/frontend_assets/bin_icon.png"
 const CartProductCard = () => {
   const { cartItems, removeFromCart, Base_Url } = useContext(AppContext);
 
-
   return (
     <div className='w-full'>
       {cartItems.map((item, index) => (

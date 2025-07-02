@@ -21,7 +21,6 @@ const Collection = () => {
   const fetchedProducts = async () => {
     try {
       const token = localStorage.getItem("token");
-      console.log("TOKEN BEING SENT:", token);
       const response = await axios.get(`${Base_Url}/api/product/list`, {
         headers: {
           Authorization: `Bearer ${token}`
@@ -31,7 +30,6 @@ const Collection = () => {
       if (response.data.success && Array.isArray(productsArray)) {
         setAllProducts(productsArray);
         toast.success("Fetched all Products Successfully");
-        console.log("API Response", response.data.data);
       }
       else {
         toast.error("Error in fetching products")
@@ -40,8 +38,6 @@ const Collection = () => {
       toast.error("Error in fetching products list ")
     }
   };
-
-  console.log("allProducts", allProducts);
 
   const handleDropDown = () => {
     setIsDropdownOpen((prev) => (prev === "closed" ? "open" : "closed"));
@@ -125,15 +121,18 @@ const Collection = () => {
               <div className="w-[40px] h-[2px] bg-[#252525] rounded-[10px] hidden sm:block"></div>
             </div>
 
-            <div className="relative" ref={dropDownRef}>
+            <div className="relative w-full max-w-[200px]" ref={dropDownRef}>
               <button
                 onClick={handleDropDown}
-                className="flex items-center gap-1 border px-3 py-1 rounded-md text-sm hover:bg-gray-100"
+                className="flex items-center justify-between w-full gap-1 border px-3 py-2 rounded-md text-sm hover:bg-gray-100 bg-white"
               >
-                Sort By <span>▼</span>
+                Sort By <span className="text-xs">▼</span>
               </button>
+
               {isDropdownOpen === "open" && (
-                <div className="absolute right-0 mt-1 bg-white border rounded shadow-md text-sm w-[150px] z-10">
+                <div
+                  className="absolute mt-1 w-full sm:w-[180px] bg-white border rounded shadow-md text-sm z-10 overflow-hidden"
+                >
                   <div
                     className="px-3 py-2 hover:bg-blue-600 hover:text-white cursor-pointer"
                     onClick={() => setSortOption("Relevant")}
@@ -155,6 +154,7 @@ const Collection = () => {
                 </div>
               )}
             </div>
+
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
