@@ -14,7 +14,7 @@ const Login = () => {
   const onSubmitHandler = async (e) => {
     e.preventDefault();
     if (!email || !password) {
-      console.log("All fields are required")
+      toast.error("All fields are required")
       return;
     }
     try {
@@ -27,6 +27,9 @@ const Login = () => {
         setUser(response.data.user);
         console.log(response.data.user._id)
         toast.success("Logged In successfully")
+      }
+      else{
+        toast.error("Invalid Credentials")
       }
     } catch (error) {
       toast.error("Error in Login")
