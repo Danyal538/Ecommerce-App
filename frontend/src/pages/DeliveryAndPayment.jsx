@@ -47,6 +47,7 @@ const DeliveryAndPayment = () => {
           items: cartItems,
           userId: user._id,
           address,
+          paymentMethod: selectedPayment,
         },
         {
           headers: {
