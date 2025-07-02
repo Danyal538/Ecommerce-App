@@ -6,23 +6,23 @@ import order from "../assets/admin_assets/order_icon.png"
 
 const Sidebar = () => {
   const linkClasses = ({ isActive }) =>
-    `flex items-center gap-3 p-3 rounded-md cursor-pointer border border-gray-300 transition ${isActive ? 'bg-gray-300 font-semibold' : 'hover:bg-gray-100'
-    }`
+    `flex items-center gap-3 px-3 py-2 rounded-md text-sm cursor-pointer border border-gray-300 transition
+     ${isActive ? 'bg-gray-200 font-semibold' : 'hover:bg-gray-100'}`
 
   return (
-    <div className="flex flex-col gap-4 p-4 h-full bg-white">
+    <div className="flex flex-col gap-3 p-4 h-full bg-white w-full">
       <NavLink to="add" className={linkClasses}>
-        <img src={add} alt="Add" className="w-6 h-6" />
+        <img src={add} alt="Add" className="w-5 h-5" />
         <p>Add Items</p>
       </NavLink>
 
       <NavLink to="list" className={linkClasses}>
-        <img src={list} alt="List" className="w-6 h-6" />
+        <img src={list} alt="List" className="w-5 h-5" />
         <p>List</p>
       </NavLink>
 
       <NavLink to="order" className={linkClasses}>
-        <img src={order} alt="Order" className="w-6 h-6" />
+        <img src={order} alt="Order" className="w-5 h-5" />
         <p>Order</p>
       </NavLink>
     </div>

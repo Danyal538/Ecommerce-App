@@ -68,10 +68,9 @@ const Add = () => {
   }
   return (
     <div className="max-w-4xl mx-auto p-6 bg-white rounded-lg shadow-md">
-
       <div className="mb-4">
         <p className="text-xl font-semibold text-gray-700 mb-3">Upload Images</p>
-        <div className="grid grid-cols-4 gap-4 items-center">
+        <div className="grid grid-cols-4 sm:grid-cols-2 gap-4 items-center">
           {[0, 1, 2, 3].map((index) => (
             <label key={index} htmlFor={`imageUpload-${index}`} className="cursor-pointer relative group">
               <img
@@ -124,7 +123,7 @@ const Add = () => {
         />
       </div>
 
-      <div className="grid grid-cols-3 gap-6 mb-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-6">
         <div>
           <p className="text-lg font-medium text-gray-700 mb-2">Product Category</p>
           <select className="w-full border border-gray-300 p-3 rounded-md text-gray-700" onChange={(e) => setCategory(e.target.value)}>
@@ -181,7 +180,7 @@ const Add = () => {
         <label htmlFor="bestseller" className="text-gray-700">Add to Bestseller</label>
       </div>
 
-      <button className="w-[200px] bg-black text-white py-3 rounded-md text-lg hover:bg-gray-800 transition" onClick={addProduct}>
+      <button className="w-full sm:w-[120px] bg-black text-white py-3 rounded-md text-lg hover:bg-gray-800 transition" onClick={addProduct}>
         Add Product
       </button>
     </div>

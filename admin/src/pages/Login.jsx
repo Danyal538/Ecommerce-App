@@ -34,7 +34,7 @@ const Login = () => {
     }
 
     return (
-        <div className="flex items-center justify-center min-h-screen">
+        <div className="flex items-center justify-center min-h-screen px-4">
             <div className="w-full max-w-md p-8 bg-white shadow-md rounded-md">
 
                 <div className="flex items-center justify-center mb-10">
@@ -45,9 +45,9 @@ const Login = () => {
                 </div>
 
                 <form className="flex flex-col gap-4" onSubmit={onSubmitHandler}>
-                    <input onChange={(e) => setEmail(e.target.value)} type="email" placeholder="Email" className="p-2 border border-gray-300 rounded" />
+                    <input onChange={(e) => setEmail(e.target.value)} type="email" placeholder="Email" className="p-3 border border-gray-300 rounded text-sm focus:outline-none focus:ring-2 focus:ring-black" />
                     <input onChange={(e) => setPassword(e.target.value)} type="password" placeholder="Password" className="p-2 border border-gray-300 rounded" />
-                    <button type="submit" className="mt-4 bg-black text-white py-2 rounded hover:bg-gray-800">Login</button>
+                    <button type="submit" className="mt-4 bg-black text-white py-3 rounded text-sm hover:bg-gray-800 transition">Login</button>
                 </form>
 
                 <div className="mt-6 text-center space-y-2">

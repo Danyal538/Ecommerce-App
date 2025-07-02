@@ -52,7 +52,8 @@ const List = () => {
         <div className="p-4">
             <p className='text-gray-700 text-xl font-semibold mb-4'>All Products List</p>
 
-            <div className='grid grid-cols-5 gap-4 px-4 py-2 bg-gray-100 border border-gray-300 rounded'>
+
+            <div className='hidden sm:grid grid-cols-5 gap-4 px-4 py-2 bg-gray-100 border border-gray-300 rounded'>
                 <p className='font-bold text-gray-700'>Image</p>
                 <p className='font-bold text-gray-700'>Name</p>
                 <p className='font-bold text-gray-700'>Category</p>
@@ -64,18 +65,24 @@ const List = () => {
                 {allProducts.map((product, index) => (
                     <div
                         key={index}
-                        className='grid grid-cols-5 gap-4 px-4 py-2 border border-gray-200 rounded items-center hover:bg-gray-50 transition'
+                        className='grid grid-cols-2 sm:grid-cols-5 gap-4 px-4 py-2 border border-gray-200 rounded items-center hover:bg-gray-50 transition'
                     >
                         <img src={`${Base_Url}/images/${product.images[0]}`} alt={product.name} className="w-14 h-14 object-contain" />
                         <p className='text-gray-600'>{product.name}</p>
-                        <p className='text-gray-600'>{product.category}</p>
-                        <p className='text-gray-600'>${product.price}</p>
-                        <p className="text-black hover:underline" onClick={() => deleteProduct(product._id)}>X</p>
+                        <p className='text-gray-600 hidden sm:block'>{product.category}</p>
+                        <p className='text-gray-600 hidden sm:block'>${product.price}</p>
+                        <p
+                            className="text-red-600 hover:underline cursor-pointer"
+                            onClick={() => deleteProduct(product._id)}
+                        >
+                            Delete
+                        </p>
                     </div>
                 ))}
             </div>
         </div>
-    )
+    );
+
 }
 
 export default List
