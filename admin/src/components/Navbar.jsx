@@ -11,7 +11,7 @@ const Navbar = () => {
   }
 
   return (
-    <div className="flex justify-between items-center px-4 sm:px-6 py-3 bg-white shadow border-b">
+    <div className="flex flex-col sm:flex-row justify-between items-center gap-3 px-4 sm:px-6 py-3 bg-white shadow border-b">
       <img src={logo} alt="Logo" className="h-10 w-auto" />
       <button
         onClick={handleLogout}

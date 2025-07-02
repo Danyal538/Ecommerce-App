@@ -8,6 +8,7 @@ const Order = () => {
   const { Base_Url } = useContext(AppContext)
   const [orders, setOrders] = useState([]);
 
+  // Fetch all orders
   const getOrders = async () => {
     const token = localStorage.getItem("token");
     try {
@@ -25,6 +26,7 @@ const Order = () => {
     }
   }
 
+  // Update order status
   const statusUpdate = async (orderId, status) => {
     const token = localStorage.getItem("token");
     try {
@@ -51,17 +53,19 @@ const Order = () => {
   }, [])
 
   return (
-    <div className="container mx-auto p-4">
-      <h1 className="font-outfit font-semibold text-2xl sm:text-3xl uppercase mb-6">
-        Order Page
+    <div className="container mx-auto px-4 py-6">
+      {/* Heading */}
+      <h1 className="font-semibold text-xl sm:text-2xl text-gray-800 uppercase mb-6">
+        Orders
       </h1>
 
-      {orders.map((order, idx) => (
+      {/* Order Cards */}
+      {orders.map((order) => (
         <div
           key={order._id}
-          className="relative bg-white border border-gray-300 rounded-lg p-6 mb-6 shadow-sm"
+          className="relative bg-white border border-gray-300 rounded-lg p-4 sm:p-6 mb-6 shadow-sm"
         >
-          {/* SELECT at top-right */}
+          {/* Status Dropdown at top-right */}
           <select
             className="absolute top-4 right-4 bg-white border border-gray-400 rounded px-3 py-1 text-sm focus:outline-none"
             defaultValue={order.status}
@@ -72,29 +76,25 @@ const Order = () => {
             <option>Delivered</option>
           </select>
 
-          {/* ICON & USER */}
-          <div className="flex items-center gap-4 mb-4">
-            <img
-              src={parcel}
-              alt="Parcel"
-              className="w-12 h-12 flex-shrink-0"
-            />
-            <p className="text-lg font-medium text-gray-800">
+          {/* User Info */}
+          <div className="flex items-center gap-3 mb-3">
+            <img src={parcel} alt="Parcel" className="w-10 h-10 sm:w-12 sm:h-12 object-contain" />
+            <p className="text-base sm:text-lg font-medium text-gray-800">
               {order.address.firstName} {order.address.lastName}
             </p>
           </div>
 
-          {/* DATE centered */}
+          {/* Date */}
           <p className="text-sm text-gray-500 text-center mb-4">
             {new Date(order.date).toLocaleDateString()}
           </p>
 
-          {/* ITEM LIST */}
-          <div className="mb-4">
+          {/* Items List */}
+          <div className="mb-4 space-y-2">
             {order.items.map((product, i) => (
               <div
                 key={i}
-                className="flex justify-between py-1 border-b border-gray-200 last:border-b-0"
+                className="flex justify-between text-sm sm:text-base border-b border-gray-200 py-1 last:border-b-0"
               >
                 <span className="text-gray-700">{product.name}</span>
                 <span className="text-gray-600">Qty: {product.quantity}</span>
@@ -102,26 +102,30 @@ const Order = () => {
             ))}
           </div>
 
-          {/* TOTAL & ADDRESS FOOTER */}
-          <div className="flex flex-col sm:flex-row justify-between items-center text-gray-700">
-            <p className="text-indigo-600 font-medium">Total: ${order.amount}</p>
-            <p className="text-sm text-gray-700 text-center sm:text-left mt-2 sm:mt-0">
+          {/* Total & Address */}
+          <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center text-gray-700 space-y-2 sm:space-y-0">
+            <p className="text-indigo-600 font-medium text-sm sm:text-base">
+              Total: ${order.amount}
+            </p>
+            <p className="text-sm text-gray-700 sm:text-right">
               {order.address.street}, {order.address.city}, {order.address.state}, {order.address.country}
               {order.address.zipcode && `, ${order.address.zipcode}`}
             </p>
           </div>
-          <div className='mt-2 text-sm text-gray-700'>
+
+          {/* Payment Info */}
+          <div className="mt-3 text-sm text-gray-700 space-y-1">
             <p>Payment Method: <span className="font-medium">{order.paymentMethod || "N/A"}</span></p>
-            <p>Status:{" "}
+            <p>
+              Status:{" "}
               <span className={`font-medium ${order.payment ? "text-green-700" : "text-red-600"}`}>
                 {order.payment ? "Paid" : "Not Paid"}
               </span>
             </p>
           </div>
         </div>
-      ))
-      }
-    </div >
+      ))}
+    </div>
   )
 }
 
