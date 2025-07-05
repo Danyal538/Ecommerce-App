@@ -26,7 +26,7 @@ const DashboardLayout = () => {
 
                 {/* Sidebar */}
                 <div
-                    className={`fixed md:static top-0 left-0 h-full md:h-auto bg-white z-20 w-64 border-r transition-transform duration-300 ${sidebarOpen ? "translate-x-0" : "-translate-x-full"} md:translate-x-0`}
+                    className={`fixed md:static top-0 left-0 h-full md:h-auto bg-white z-20 w-64 border-r transition-transform duration-300 ${sidebarOpen ? "translate-x-0" : "-translate-x-full"} md:translate-x-0 md:flex`}
                 >
                     <Sidebar />
                 </div>
