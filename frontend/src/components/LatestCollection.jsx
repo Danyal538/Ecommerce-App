@@ -42,7 +42,7 @@ const LatestCollection = () => {
                 </p>
 
                 <p className="max-w-xl mx-auto text-base sm:text-lg font-outfit font-normal mt-3 text-gray-600">
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Nemo, possimus?
+                    Discover our latest collection – handpicked styles, trending now, and crafted to elevate your everyday essentials
                 </p>
             </div>
             <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6'>

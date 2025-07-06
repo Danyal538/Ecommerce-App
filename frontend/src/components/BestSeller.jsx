@@ -45,7 +45,7 @@ const BestSeller = () => {
                 </p>
 
                 <p className="max-w-2xl mx-auto text-center text-[16px] sm:text-[18px] leading-snug font-outfit font-normal mt-2 text-gray-600">
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Nemo, possimus?
+                    Discover our Best Sellers – loved by customers, trusted for quality.
                 </p>
             </div>
 

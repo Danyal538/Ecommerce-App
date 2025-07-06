@@ -10,8 +10,7 @@ const Footer = () => {
                 <div className="md:w-1/2">
                     <img src={Logo} alt="Logo" className="w-[140px] md:w-[166px] h-auto" />
                     <p className="mt-6 text-[16px] leading-[28px] text-[#595959]">
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Est nisi, quia ea error officia
-                        illum perferendis esse eius laudantium impedit dignissimos, neque harum similique.
+                        We are committed to delivering quality products with seamless online shopping experiences. Connect with us for updates, offers, and support. Bringing value, trust, and quality to your online shopping journey. Join our community today.
                     </p>
                 </div>
 

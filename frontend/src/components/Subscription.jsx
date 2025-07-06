@@ -8,7 +8,7 @@ const Subscription = () => {
                 Subscribe now & get 20% off
             </p>
             <p className="font-outfit font-normal text-[16px] sm:text-[18px] leading-[150%] text-gray-600 mb-6 max-w-xl mx-auto">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Nobis, pariatur?
+                Join our newsletter and grab 20% off – fresh deals straight to your inbox!
             </p>
 
             <div className="flex flex-col sm:flex-row justify-center items-center">
