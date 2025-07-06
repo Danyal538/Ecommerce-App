@@ -16,7 +16,6 @@ const List = () => {
             })
             if (response.data.success) {
                 setAllProducts(response.data.data)
-                toast.success("Products fetched")
             } else {
                 toast.error("Error in fetching products")
             }

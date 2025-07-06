@@ -19,7 +19,6 @@ const Order = () => {
       })
       if (data.success) {
         setOrders(data.data)
-        toast.success("Orders fetched")
       } else toast.error("Error in fetching orders")
     } catch {
       toast.error("Error in order fetching")
