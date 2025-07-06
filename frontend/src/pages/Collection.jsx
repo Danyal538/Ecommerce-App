@@ -29,7 +29,6 @@ const Collection = () => {
       const productsArray = response.data?.data;
       if (response.data.success && Array.isArray(productsArray)) {
         setAllProducts(productsArray);
-        toast.success("Fetched all Products Successfully");
       }
       else {
         toast.error("Error in fetching products")

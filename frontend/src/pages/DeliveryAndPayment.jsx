@@ -4,7 +4,6 @@ import { useNavigate } from 'react-router-dom';
 import { assets } from '../assets/frontend_assets/assets';
 import { toast } from 'react-toastify';
 import axios from 'axios';
-import { use } from 'react';
 
 const DeliveryAndPayment = () => {
   const { cartItems, totalPrice, selectedPayment, setSelectedPayment, user, Base_Url } = useContext(AppContext);
@@ -63,7 +62,6 @@ const DeliveryAndPayment = () => {
       }
     } catch (error) {
       toast.error("Error in order placement")
-      toast.error("Error in order placement");
 
     }
   }

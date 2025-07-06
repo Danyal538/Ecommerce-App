@@ -15,12 +15,6 @@ const MyOrder = () => {
     const success = searchParams.get("success");
     const orderId = searchParams.get("orderId");
 
-    console.log("📍 Query Params at top:", {
-        success: searchParams.get("success"),
-        orderId: searchParams.get("orderId"),
-    });
-
-
     const getOrders = async (userId) => {
         const token = localStorage.getItem("token");
         try {
@@ -31,7 +25,6 @@ const MyOrder = () => {
             });
             if (data.success) {
                 setOrders(data.data);
-                toast.success("Orders fetched");
             } else {
                 toast.error("Could not fetch your orders");
             }

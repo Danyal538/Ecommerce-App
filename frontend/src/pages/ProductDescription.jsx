@@ -21,7 +21,6 @@ const ProductDescription = () => {
         try {
             const response = await axios.get(`${Base_Url}/api/product/getProduct/${id}`)
             if (response.data.success) {
-                toast.success("Product fetched");
                 setProduct(response.data.data);
                 setMainImage(response.data.data.images[0])
             }
@@ -37,7 +36,6 @@ const ProductDescription = () => {
             const response = await axios.get(`${Base_Url}/api/product/list`);
             if (response.data.data) {
                 setAllProducts(response.data.data);
-                console.log("All product", product)
             }
             else {
                 console.log("Error in fetching product list")
