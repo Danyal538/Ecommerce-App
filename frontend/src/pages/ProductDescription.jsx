@@ -151,19 +151,19 @@ const ProductDescription = () => {
                     </div>
                 </div>
             </div >
-            <div className='flex gap-2 border-1 border-[#D0D0D0] w-[250px] p-2 ml-10 mt-10'>
+            <div className='flex gap-2 border-1 border-[#D0D0D0] w-[250px] p-2 ml-10 mt-10 sm:mb-5'>
                 <p className='font-semibold'>Description</p>
                 <p className='text-[#898989]'>Reviews: ({product.numReviews})</p>
             </div>
-            <div className='border-1 border-[#D0D0D0] w-[1200px] ml-10 text-[#898989] font-outfit'>
+            <div className='w-full max-w-[1200px] mx-auto px-4 border border-[#D0D0D0] text-[#898989] font-outfit space-y-4 p-2'>
                 <p>An e-commerce website is an online platform that facilitates the buying and selling of products or services over the internet. It serves as a virtual marketplace where businesses and individuals can showcase their products, interact with customers, and conduct transactions without the need for a physical presence. E-commerce websites have gained immense popularity due to their convenience, accessibility, and the global reach they offer.</p>
                 <p className='mt-2'>E-commerce websites typically display products or services along with detailed descriptions, images, prices, and any available variations (e.g., sizes, colors). Each product usually has its own dedicated page with relevant information.</p>
             </div>
-            <div className="flex items-center justify-center gap-4 mt-16 mb-8">
+            <div className="flex items-center justify-center gap-4 mt-16 mb-8 sm:ml-5">
                 <p className="text-[35px] font-outfit font-bold uppercase leading-[100%]">
                     <span className="text-gray-400 font-bold">Related</span> Products
                 </p>
-                <div className="w-[50px] h-[2px] bg-[#252525] rounded-[10px]"></div>
+                <div className="w-[50px] h-[2px] bg-[#252525] rounded-[10px] sm:hidden"></div>
             </div>
             <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6 p-6 mb-20'>
                 {limitedRelatedProducts.map((product) => <ProductCard product={product} key={product._id} />)}

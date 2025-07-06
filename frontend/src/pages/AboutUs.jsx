@@ -61,7 +61,7 @@ const AboutUs = () => {
         </div>
       </div>
 
-      <Subscription className="mt-20" />
+      <Subscription className="mt-20 sm:mb-10" />
     </div>
   )
 }

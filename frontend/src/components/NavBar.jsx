@@ -52,7 +52,7 @@ const NavBar = () => {
                     <NavLink className={({ isActive }) => isActive ? "border-b-2 border-gray-700" : "text-gray-600 hover:text-black"} to='/collection'>Collection</NavLink>
                     <NavLink className={({ isActive }) => isActive ? "border-b-2 border-gray-700" : "text-gray-600 hover:text-black"} to='/about'>About</NavLink>
                     <NavLink className={({ isActive }) => isActive ? "border-b-2 border-gray-700" : "text-gray-600 hover:text-black"} to='/contact'>Contact</NavLink>
-                    <NavLink className={({ isActive }) => isActive ? "border-b-2 border-gray-700" : "text-gray-600 hover:text-black"} to={adminUrl}>Admin Panel</NavLink>
+                    <NavLink className={({ isActive }) => isActive ? "border-b-2 border-gray-700 sm:hidden" : "text-gray-600 hover:text-black sm:hidden"} to={adminUrl}>Admin Panel</NavLink>
                 </div>
 
                 <div className='flex items-center gap-4'>

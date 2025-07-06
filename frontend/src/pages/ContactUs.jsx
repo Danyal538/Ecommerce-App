@@ -48,7 +48,7 @@ const ContactUs = () => {
         </div>
       </div>
 
-      <Subscription className="mt-20" />
+      <Subscription className="mt-20 sm:mb-10" />
     </>
   )
 }
