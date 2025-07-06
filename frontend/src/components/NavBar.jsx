@@ -105,7 +105,6 @@ const NavBar = () => {
                         <NavLink onClick={() => setMenuOpen(false)} className={({ isActive }) => isActive ? "border-b-2 border-gray-700" : "text-gray-600 hover:text-black"} to='/collection'>Collection</NavLink>
                         <NavLink onClick={() => setMenuOpen(false)} className={({ isActive }) => isActive ? "border-b-2 border-gray-700" : "text-gray-600 hover:text-black"} to='/about'>About</NavLink>
                         <NavLink onClick={() => setMenuOpen(false)} className={({ isActive }) => isActive ? "border-b-2 border-gray-700" : "text-gray-600 hover:text-black"} to='/contact'>Contact</NavLink>
-                        <NavLink onClick={() => setMenuOpen(false)} className={({ isActive }) => isActive ? "border-b-2 border-gray-700" : "text-gray-600 hover:text-black"} to={adminUrl}>Admin Panel</NavLink>
                     </div>
                 )
             }
