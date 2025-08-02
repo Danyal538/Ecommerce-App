@@ -12,7 +12,7 @@ const AppProvider = ({ children }) => {
     const [selectedPayment, setSelectedPayment] = useState("stripe");
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [user, setUser] = useState(null);
-    const Base_Url = "https://ecommercebackend-production-ec6d.up.railway.app"
+    const Base_Url = "https://ecommercebackend-production-ec6d.up.railway.app/"
 
 
     const cartCount = cartItems.reduce((acc, item) => acc + item.quantity, 0);
@@ -71,7 +71,7 @@ const AppProvider = ({ children }) => {
                 if (data.success) {
                     setUser(data.user)
                     setIsLoggedIn(true);
-                    console.log("✅ Auth success, user:", data.user);
+                    console.log("Auth success, user:", data.user);
                 }
                 else {
                     setIsLoggedIn(false)
