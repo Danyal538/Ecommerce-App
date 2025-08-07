@@ -12,7 +12,7 @@ const AppProvider = ({ children }) => {
     const [selectedPayment, setSelectedPayment] = useState("stripe");
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [user, setUser] = useState(null);
-    const Base_Url = "https://ecommercebackend-production-ec6d.up.railway.app/"
+    const Base_Url = "https://ecommerce-app-production-7cf6.up.railway.app/"
 
 
     const cartCount = cartItems.reduce((acc, item) => acc + item.quantity, 0);
